@@ -3,16 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/c01_navbar/navbar.component';
-import { MainComponent } from './pages/p01_main/main.component';
+import { MainPageModule } from './pages/p01_main/mainpage.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    MainComponent
   ],
   imports: [
     BrowserModule,
+    MainPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
