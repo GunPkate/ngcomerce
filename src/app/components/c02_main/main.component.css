@@ -1,0 +1,20 @@
+.main-prop {
+    position: relative;
+}
+
+.main-prop-text {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    background: rgba(76, 175, 80, 0.3) ;
+    color: bisque;
+}
+
+.main-prop-img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
