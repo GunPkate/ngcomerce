@@ -10,25 +10,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 export class CategoryComponent {
   title = 'ngcomerce';
   list = [
-    {
-      name: "1",
-      price: 10
-    },
-    {
-      name: "2",
-      price: 20
-    },
-    {
-      name: "3",
-      price: 30
-    },
-    {
-      name: "4",
-      price: 40
-    },
-    {
-      name: "5",
-      price: 50
-    },
+    { id: 1, title: 'Item 1', description: 'Description for Item 1' },
+    { id: 2, title: 'Item 2', description: 'Description for Item 2' },
+    { id: 3, title: 'Item 3', description: 'Description for Item 3' },
+    { id: 4, title: 'Item 4', description: 'Description for Item 4' },
+    { id: 5, title: 'Item 5', description: 'Description for Item 5' },
+    { id: 6, title: 'Item 6', description: 'Description for Item 6' }
   ]
 }
