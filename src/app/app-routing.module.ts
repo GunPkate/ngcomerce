@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainPageModule } from './pages/p01_main/mainpage.module';
 import { MainPageComponent } from './pages/p01_main/mainpage.component';
+import { ItemlistComponent } from './pages/p02_itemlist/itemlist.component';
 
 
 const routes: Routes = [
-//   {path: '', redirectTo: 'home', pathMatch: 'full' },
-  {path: 'home', component: MainPageComponent  },
+  // {path: '**', redirectTo: '', pathMatch: 'full' },
   {path: '', component: MainPageComponent  },
+  {path: 'itemlist', component: ItemlistComponent  },
 //   {path: 'category', lo: <div>1234<div/> },
 ];
 
