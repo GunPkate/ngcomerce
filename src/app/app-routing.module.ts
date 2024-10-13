@@ -7,9 +7,9 @@ import { itemlistPageModule } from './pages/p02_itemlist/itemlistPage.module';
 
 
 const routes: Routes = [
-  // {path: '**', redirectTo: '', pathMatch: 'full' },
   {path: '', component: MainPageComponent  },
   {path: 'itemlist', component: ItemlistComponent  },
+  {path: '', redirectTo: '', pathMatch: 'full' },
 //   {path: 'category', lo: <div>1234<div/> },
 ];
 

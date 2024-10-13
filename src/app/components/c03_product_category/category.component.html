@@ -1,5 +1,9 @@
-<div class="container-fluid">
-    <div *ngFor="let i of list">
-        <div>{{i.price}}</div>
+<div class="container-fluid row">
+    <div *ngFor="let i of list" class="grid-container">
+        <div class="grid-item mt-4 mx-auto">
+            <img class="img-fluid" src="https://picsum.photos/600/400"/>
+            <div>{{i.name}}</div>
+            <div>{{i.price}}</div>
+        </div>
     </div>
 </div>
