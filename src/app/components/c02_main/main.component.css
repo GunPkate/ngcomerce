@@ -12,9 +12,21 @@
     color: bisque;
 }
 
-.main-prop-img {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+.main-box {
+    min-height: 220px;
+    background-color: #04BF45;
 }
 
+.main-box-text-lg{
+    color: white;
+    font-size: 32px;
+}
+
+.main-box-text-md{
+    color: white;
+    font-size: 20px;
+}
+
+.card {
+    border: none;
+}
