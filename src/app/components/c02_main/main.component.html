@@ -1,13 +1,19 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8">
-                <div class="imagebox">
+                <div class="imagebox d-none d-lg-block row">
                     <img src="https://picsum.photos/1000/600" alt="">
+                </div>
+                <div class="imagebox d-block d-lg-none row">
+                    <img src="https://picsum.photos/1000/300" alt="">
                 </div>
             </div>
             <div class="col-lg-4 d-flex flex-row flex-lg-column justify-content-between">
-                <div class="col-6 col-lg-12 imagebox spacer flex-fill">
+                <div class="col-6 col-lg-12 imagebox spacer flex-fill d-none d-lg-block">
                     <img src="https://picsum.photos/600/400" alt="">
+                </div>
+                <div class="col-6 col-lg-12 imagebox spacer flex-fill d-block d-lg-none">
+                    <img src="https://picsum.photos/400/250" alt="">
                 </div>
                 <div class="col-6 col-lg-12 text-box spacer flex-fill d-flex flex-column">
                     <p class="main-box-text-lg">Last</p>

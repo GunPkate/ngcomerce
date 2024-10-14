@@ -7,10 +7,10 @@ import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     ItemlistComponent,
-    CategoryComponent
   ],
   imports: [
     CommonModule,
+    CategoryComponent,
     RouterModule.forChild([
       {path: 'order', component: ItemlistComponent},
       {path: 'order/:id', component: ItemlistComponent},

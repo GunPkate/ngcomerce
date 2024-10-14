@@ -1,9 +1,16 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
 })
 
 export class CategoryComponent implements OnInit{
