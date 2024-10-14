@@ -5,9 +5,10 @@
                 <div class="card-body">
                     <div class="item-content">
                         <img class="img-fluid" src="https://picsum.photos/500/400"/>
-                        <h5 [ngClass]="i % 2 ===1 ? 'item-text item-info2 ': 'item-text item-info1' ">{{ item.title }}</h5>
+                        <button [routerLink]="['/order', item.id]">
+                            <h5 [ngClass]="i % 2 ===1 ? 'item-text item-info2 ': 'item-text item-info1' ">{{ item.title }}</h5>
+                        </button>
                         <p class="card-text">{{ item.description }}</p>
-                        <a href="/order">order</a>
                     </div>
                 </div>
             </div>

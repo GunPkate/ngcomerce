@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: '', component: MainPageComponent  },
   {path: 'itemlist', component: ItemlistComponent  },
   {path: 'order', component: OrderComponent  },
+  {path: 'order/:id', component: OrderComponent  },
   {path: 'select', component: SelectitemComponent  },
   {path: '', redirectTo: '', pathMatch: 'full' },
 //   {path: 'category', lo: <div>1234<div/> },
