@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 @Component({
   selector: 'category',
@@ -15,6 +15,8 @@ import { RouterModule } from '@angular/router';
 
 export class CategoryComponent implements OnInit{
 
+  constructor(private router: Router){}
+
   title = 'ngcomerce';
   list = [
     { id: 1, title: 'Item 1', description: 'Description for Item 1' },
@@ -26,7 +28,15 @@ export class CategoryComponent implements OnInit{
   ]
 
   ngOnInit(): void {
-    console.log(this.list)
+    let setProduct = this.router.url.split("/")
+    if(setProduct[1] === ""){
+      this.list = [
+        { id: 1, title: 'Item 1', description: 'Description for Item 1' },
+        { id: 2, title: 'Item 2', description: 'Description for Item 2' },
+        { id: 3, title: 'Item 3', description: 'Description for Item 3' },
+      ]
+    }
+    console.log(setProduct)
     // throw new Error('Method not implemented.');
   }
 }
