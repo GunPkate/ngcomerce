@@ -1,12 +1,14 @@
 <div class="container mx-auto">
     <div class="row">
-        <div *ngFor="let item of list" class="col-lg-4 col-md-6 col-sm-12 col-xs-12" >
+        <div *ngFor="let item of list; index as i" class="col-lg-4 col-md-6 col-sm-12 col-xs-12" >
             <div class="card">
                 <div class="card-body">
-                    <img class="img-fluid" src="https://picsum.photos/500/400"/>
-                    <h5 class="card-title">{{ item.title }}</h5>
-                    <p class="card-text">{{ item.description }}</p>
-                    <!-- <a [routerLink]="['/item', item.id]" class="btn btn-primary">View Details</a> -->
+                    <div class="item-content">
+                        <img class="img-fluid" src="https://picsum.photos/500/400"/>
+                        <h5 [ngClass]="i % 2 ===1 ? 'item-text item-info2 ': 'item-text item-info1' ">{{ item.title }}</h5>
+                        <p class="card-text">{{ item.description }}</p>
+                        <a href="/order">order</a>
+                    </div>
                 </div>
             </div>
         </div>

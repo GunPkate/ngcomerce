@@ -1,13 +1,13 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 
-export class CategoryComponent {
+export class CategoryComponent implements OnInit{
+
   title = 'ngcomerce';
   list = [
     { id: 1, title: 'Item 1', description: 'Description for Item 1' },
@@ -17,4 +17,9 @@ export class CategoryComponent {
     { id: 5, title: 'Item 5', description: 'Description for Item 5' },
     { id: 6, title: 'Item 6', description: 'Description for Item 6' }
   ]
+
+  ngOnInit(): void {
+    console.log(this.list)
+    // throw new Error('Method not implemented.');
+  }
 }
