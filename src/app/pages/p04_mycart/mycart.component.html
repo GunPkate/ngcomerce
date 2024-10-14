@@ -1,1 +1,27 @@
-<p>Your My Cart</p>
+<p>Let's see what is My Cart</p>
+
+<table class="col-12 mt-4 text-center">
+    <tr>
+        <th class="col-3">Product</th>
+        <th class="col-3">Price</th>
+        <th class="col-3">Quantity</th>
+        <th class="col-3">Total</th>
+    </tr>
+</table>
+
+<table class="col-12 mt-4" *ngIf="itemlist.length > 0">
+    <tr *ngFor="let item of itemlist;">
+        <td class="col-3">1</td>
+        <td class="col-3">2</td>
+        <td class="col-3">3</td>
+        <td class="col-3">4</td>
+    </tr>
+</table>
+
+<table class="col-12 mt-4" *ngIf="itemlist.length === 0">
+    <tr>
+        <td rowspan="6" class="col-12">
+            <div class="col-12 text-center">Your Cart is Empty</div>
+        </td>
+    </tr>
+</table>

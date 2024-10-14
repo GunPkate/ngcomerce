@@ -9,6 +9,8 @@ export class MyCartComponent implements OnInit {
 
   constructor() { }
 
+  itemlist = []
+
   ngOnInit(): void {
   }
 

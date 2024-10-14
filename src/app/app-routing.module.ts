@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'itemlist', component: ItemlistComponent  },
   {path: 'order', component: OrderComponent  },
   {path: 'order/:id', component: OrderComponent  },
-  {path: 'select', component: MyCartComponent  },
+  {path: 'mycart', component: MyCartComponent  },
   {path: '', redirectTo: '', pathMatch: 'full' },
 //   {path: 'category', lo: <div>1234<div/> },
 ];
