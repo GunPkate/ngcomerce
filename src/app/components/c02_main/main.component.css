@@ -12,11 +12,6 @@
     color: bisque;
 }
 
-.main-box {
-    /* min-height: 220px; */
-    background-color: #04BF45;
-}
-
 .main-box-text-lg{
     color: white;
     font-size: 32px;
@@ -45,6 +40,6 @@
     justify-content: center;
     align-items: center;
     height: 100%; /* Ensure it takes the full height of the parent */
-    background-color: #f8f9fa; /* Light background for visibility */
+    background-color: #1dd25c;
     padding: 20px; /* Padding for text */
 }
