@@ -13,7 +13,7 @@
 }
 
 .main-box {
-    min-height: 220px;
+    /* min-height: 220px; */
     background-color: #04BF45;
 }
 
@@ -27,6 +27,24 @@
     font-size: 20px;
 }
 
-.card {
-    border: none;
+.imagebox {
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+
+}
+.spacer {
+    margin-bottom: 15px; /* Space between images */
+}
+
+.text-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure it takes the full height of the parent */
+    background-color: #f8f9fa; /* Light background for visibility */
+    padding: 20px; /* Padding for text */
 }
