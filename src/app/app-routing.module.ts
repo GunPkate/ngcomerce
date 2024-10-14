@@ -5,7 +5,7 @@ import { MainPageComponent } from './pages/p01_main/mainpage.component';
 import { ItemlistComponent } from './pages/p02_itemlist/itemlist.component';
 import { itemlistPageModule } from './pages/p02_itemlist/itemlistPage.module';
 import { OrderComponent } from './pages/p03_order/order/order.component';
-import { SelectitemComponent } from './pages/p04_selectitem/selectitem/selectitem.component';
+import { MyCartComponent } from './pages/p04_mycart/mycart.component';
 
 
 const routes: Routes = [
@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'itemlist', component: ItemlistComponent  },
   {path: 'order', component: OrderComponent  },
   {path: 'order/:id', component: OrderComponent  },
-  {path: 'select', component: SelectitemComponent  },
+  {path: 'select', component: MyCartComponent  },
   {path: '', redirectTo: '', pathMatch: 'full' },
 //   {path: 'category', lo: <div>1234<div/> },
 ];

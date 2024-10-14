@@ -5,14 +5,14 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/c01_navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { OrderComponent } from './pages/p03_order/order/order.component';
-import { SelectitemComponent } from './pages/p04_selectitem/selectitem/selectitem.component';
+import { MyCartComponent } from './pages/p04_mycart/mycart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     OrderComponent,
-    SelectitemComponent,
+    MyCartComponent,
   ],
   imports: [
     BrowserModule,
