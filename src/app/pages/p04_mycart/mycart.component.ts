@@ -9,7 +9,7 @@ export class MyCartComponent implements OnInit {
 
   constructor() { }
 
-  itemlist = []
+  itemlist = [1,2,3,4]
 
   ngOnInit(): void {
   }

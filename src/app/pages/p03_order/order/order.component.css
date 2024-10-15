@@ -11,11 +11,24 @@
     margin-bottom: 15px; /* Space between images */
 }
 
-.text-box {
+.text-box-order {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%; /* Ensure it takes the full height of the parent */
-    background-color: #1dd25c;
+    height: 26.7%; 
+    /* Ensure it takes the full height of the parent */
+    /* background-color: #1dd25c; */
     padding: 20px; /* Padding for text */
+}
+.text-box-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%; 
+}
+
+.desc-box-order{
+    height: 100%;
+    /* display: flex; */
+    /* justify-content: space-between; */
 }
