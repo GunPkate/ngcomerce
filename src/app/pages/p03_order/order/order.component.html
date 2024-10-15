@@ -5,9 +5,17 @@
             <div class="row h-100">
                 <div class="flex-column col-4">
                     <div class="text-box-arrow">
-                        <button class="btn btn-secondary px-1" (click)="changeImg(-1)">
-                            <i class="fa-solid fa-arrow-up"></i> 
-                        </button>
+                        <div *ngIf="page == 1">
+                            <button class="btn btn-secondary px-1 disabled">
+                                <i class="fa-solid fa-arrow-up"></i> 
+                            </button>
+                        </div>
+
+                        <div *ngIf="page > 1">
+                            <button class="btn btn-secondary px-1" (click)="changeImg(-1)">
+                                <i class="fa-solid fa-arrow-up"></i> 
+                            </button>
+                        </div>
                     </div>
 
                     <div *ngFor="let item of imgList; index as i" class="text-box-order">
@@ -16,9 +24,17 @@
      
        
                     <div class="text-box-arrow">
-                        <button class="btn btn-secondary px-1" (click)="changeImg(1)">
-                            <i class="fa-solid fa-arrow-down"></i>
-                        </button>
+                        <div *ngIf="page *3 > imgAll.length">
+                            <button class="btn btn-secondary px-1 disabled">
+                                <i class="fa-solid fa-arrow-down"></i> 
+                            </button>
+                        </div>
+
+                        <div *ngIf="page *3 < imgAll.length">
+                            <button class="btn btn-secondary px-1" (click)="changeImg(1)">
+                                <i class="fa-solid fa-arrow-down"></i> 
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-8">
