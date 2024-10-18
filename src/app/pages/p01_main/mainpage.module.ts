@@ -5,6 +5,7 @@ import { MainPageComponent } from './mainpage.component';
 
 import { MainComponent } from '../../components/c02_main/main.component';
 import { CategoryComponent } from 'src/app/components/c03_product_category/category.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { CategoryComponent } from 'src/app/components/c03_product_category/categ
   imports: [
     CategoryComponent,
     BrowserModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [MainComponent]
