@@ -1,11 +1,15 @@
+:root{
+    --img-height: 500px
+}
+
 .imagebox {
     overflow: hidden;
     width: 100%;
-    height: auto;
+    height: var(--img-height);
     display: flex;
     justify-content: center; /* Centers horizontally */
     align-items: center; /* Centers vertically */
-
+    border-radius: 10px;
 }
 .spacer {
     margin-bottom: 15px; /* Space between images */
@@ -15,11 +19,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 26.7%; 
-    /* Ensure it takes the full height of the parent */
-    /* background-color: #1dd25c; */
-    padding: 20px; /* Padding for text */
+    margin-bottom: 5px !important;
 }
+
 .text-box-arrow {
     display: flex;
     justify-content: center;

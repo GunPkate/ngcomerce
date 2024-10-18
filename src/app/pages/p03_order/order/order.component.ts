@@ -34,15 +34,11 @@ export class OrderComponent implements OnInit {
           this.selectImg = this.imgAll[0].img_url
           this.imgList = this.imgAll.filter(x=> parseInt(x.img_code) <= 3);
 
-          // this.selectItem.details.price = res[0].details.price
         }   
       )
       ]
     )
 
-    if( a[2] > 3){
-      this.title = a[2] 
-    }
 
   }
   
@@ -68,5 +64,9 @@ export class OrderComponent implements OnInit {
       }
     }
     console.log(this.imgList)
+  }
+
+  setSelectImg(value: number){
+    this.selectImg = this.imgAll[value-1].img_url
   }
 }

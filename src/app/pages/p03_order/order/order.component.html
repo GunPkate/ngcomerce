@@ -18,8 +18,14 @@
                         </div>
                     </div>
 
-                    <div *ngFor="let item of imgList; index as i" class="text-box-order">
-                        <img class="img-fluid" src={{item.img_url}}/> 
+                    <div *ngFor="let item of imgList; index as i" class="text-box-order ">
+                        <button  style=" border-radius: 50%; background-color: white;" (click)="setSelectImg(item.img_code)" >
+                            <img 
+                            *ngIf="item.img_url" class="img-fluid " 
+                            style="height: 150px; border-radius: 50%; border: 3px solid black; " 
+                            src={{item.img_url}}
+                            /> 
+                        </button>
                     </div>
      
        
