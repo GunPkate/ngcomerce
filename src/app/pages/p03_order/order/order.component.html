@@ -19,7 +19,7 @@
                     </div>
 
                     <div *ngFor="let item of imgList; index as i" class="text-box-order">
-                        <div> {{item.name}} </div>
+                        <img class="img-fluid" src={{item.img_url}}/> 
                     </div>
      
        
@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-8">
                     <div class="col-12 col-lg-12 imagebox spacer ">
-                        <img class="img-fluid" src="https://picsum.photos/470/500" alt="">
+                        <img class="img-fluid" src={{selectImg}} alt="">
                     </div>
 
                 </div>
@@ -49,7 +49,7 @@
         <div class="col-12 col-md-5 col-lg-5 h-100">
             <div class="card px-4 desc-box-order">
                 <div>{{title}} </div>
-                <div>Quilted Leather Jacket </div>
+                <div>{{selectItem.name}} </div>
                 <div>Availability: 100 items </div>
                 <div>SKU: — </div>
                 <div>Barcode: — </div>

@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,20 +10,30 @@ import { Router } from '@angular/router';
 })
 export class OrderComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor( private router:Router, private http: HttpClient) { }
   title: string = "My Order"
   imgList:any = []
   page: number = 1
-  imgAll = [
-    {name:"a"},
-    {name:"b"},
-    {name:"c"},
-    {name:"d"},
-    {name:"e"}
-  ]
+  imgAll: any
+  selectItem: any
+  selectImg =""
 
   ngOnInit(): void {
     let a: any = this.router.url.split("/")
+    console.log(a[2])
+    Promise.all(
+      [
+      this.http.post("http://localhost:3000/order/product",{ id: a[2]}).subscribe(
+        (res)=>{ 
+          this.selectItem = res
+          this.imgAll = this.selectItem[0].img_url
+          this.selectImg = this.selectItem[0].img_url[0].img_url
+          console.log(res)
+        }   
+      )
+      ]
+    )
+
     if( a[2] > 3){
       this.title = a[2] 
     }
