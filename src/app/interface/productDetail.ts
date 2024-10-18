@@ -5,6 +5,17 @@ export interface ProductDetail {
     name              :string
     description       :string
     rating            :string 
-    product_code      :string
 }
 
+export class InitialProductDetail {
+    static InitialProductDetail(): ProductDetail{
+        return {
+            id: "",
+            price: 0,
+            promotion_price: 0,
+            name: "",
+            description: "",
+            rating: "",
+        }
+    }
+}
