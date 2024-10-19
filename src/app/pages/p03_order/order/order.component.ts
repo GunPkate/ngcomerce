@@ -20,6 +20,8 @@ export class OrderComponent implements OnInit {
   selectItem: Product = InitialProduct.InitialProduct()
   selectImg =""
   imgAll: productImg[] = []
+  orderQty: number = 1
+
   ngOnInit(): void {
     let a: any = this.router.url.split("/")
     console.log(a[2])
@@ -80,5 +82,10 @@ export class OrderComponent implements OnInit {
     let color = `background-color ${value}; width: 30px; height: 30px`
     console.log(color)
     return color
+  }
+  setOrder(value: number){
+    if( this.orderQty+value >= 0 ){
+      this.orderQty += value;
+    }
   }
 }

@@ -94,9 +94,9 @@
                 </div>
                 <div class="d-flex">
                     <span class="d-flex order-btn-bg pb-1">
-                        <button class="order-btn">-</button>
-                        <span class="order-text">1</span>
-                        <button class="order-btn">+</button>
+                        <button class="order-btn" (click)="setOrder(-1)">-</button>
+                        <span class="order-text">{{orderQty < 10 ? '0'+orderQty : orderQty}}</span>
+                        <button class="order-btn" (click)="setOrder(+1)">+</button>
                     </span>
                 </div>
                 <button class="order-btn-bg mt-2 p-2">
