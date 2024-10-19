@@ -4,5 +4,6 @@ export interface ProductVariant {
     color_code   :string
     size        :string
     remains     :number
+    skucode     :string
 }
 

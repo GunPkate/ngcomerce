@@ -28,7 +28,6 @@ export class OrderComponent implements OnInit {
       this.http.post("http://localhost:3000/order/product",{ id: a[2]}).subscribe(
         (res: any)=>{ 
           this.selectItem.name = res[0].name
-          console.log(res[0].product_detail[0])
 
           res[0].img_url.forEach((e: productImg) => { this.imgAll.push(e)});
           this.selectImg = this.imgAll[0].img_url
@@ -38,6 +37,9 @@ export class OrderComponent implements OnInit {
           this.selectItem.details.price = res[0].product_detail[0].price
           this.selectItem.details.promotion_price = res[0].product_detail[0].promotion_price
           this.selectItem.details.rating = res[0].product_detail[0].rating
+
+          this.selectItem.variants = res[0].variants
+          console.log(this.selectItem.variants)
         }   
       )
       ]
@@ -72,5 +74,11 @@ export class OrderComponent implements OnInit {
 
   setSelectImg(value: number){
     this.selectImg = this.imgAll[value-1].img_url
+  }
+
+  setColor(value: string){
+    let color = `background-color ${value}; width: 30px; height: 30px`
+    console.log(color)
+    return color
   }
 }

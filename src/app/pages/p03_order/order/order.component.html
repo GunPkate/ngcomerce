@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div>
     <div class="row  flex-md-row flex-lg-row">
         <div class="flex-row col-12 col-md-7 col-lg-7 mb-4">
@@ -7,38 +9,37 @@
                     <div class="text-box-arrow">
                         <div *ngIf="page == 1">
                             <button class="btn btn-secondary px-1 disabled">
-                                <i class="fa-solid fa-arrow-up"></i> 
+                                <i class="fa-solid fa-arrow-up"></i>
                             </button>
                         </div>
 
                         <div *ngIf="page > 1">
                             <button class="btn btn-secondary px-1" (click)="changeImg(-1)">
-                                <i class="fa-solid fa-arrow-up"></i> 
+                                <i class="fa-solid fa-arrow-up"></i>
                             </button>
                         </div>
                     </div>
 
                     <div *ngFor="let item of imgList; index as i" class="text-box-order ">
-                        <button  style=" border-radius: 50%; background-color: white;" (click)="setSelectImg(item.img_code)" >
-                            <img 
-                            *ngIf="item.img_url" class="img-fluid " 
-                            style="height: 150px; border-radius: 50%; border: 3px solid black; " 
-                            src={{item.img_url}}
-                            /> 
+                        <button style=" border-radius: 50%; background-color: white;"
+                            (click)="setSelectImg(item.img_code)">
+                            <img *ngIf="item.img_url" class="img-fluid "
+                                style="height: 150px; border-radius: 50%; border: 3px solid black; "
+                                src={{item.img_url}} />
                         </button>
                     </div>
-     
-       
+
+
                     <div class="text-box-arrow">
                         <div *ngIf="page *3 > imgAll.length">
                             <button class="btn btn-secondary px-1 disabled">
-                                <i class="fa-solid fa-arrow-down"></i> 
+                                <i class="fa-solid fa-arrow-down"></i>
                             </button>
                         </div>
 
                         <div *ngIf="page *3 < imgAll.length">
                             <button class="btn btn-secondary px-1" (click)="changeImg(1)">
-                                <i class="fa-solid fa-arrow-down"></i> 
+                                <i class="fa-solid fa-arrow-down"></i>
                             </button>
                         </div>
                     </div>
@@ -51,27 +52,57 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-12 col-md-5 col-lg-5 h-100">
-            <div class="card px-4 desc-box-order">
-                <div>{{title}} </div>
-                <div>{{selectItem.name}} </div>
-                <div>Availability: 100 items </div>
-                <div>SKU: — </div>
-                <div>Barcode: — </div>
-                <div>Collections: Sale, T-shirts, Teens clothing, Women’s clothing </div>
-                <div>Product type: Sportswear </div>
-                <div>Vendor: SuitUP </div>
-                <div>Material {{selectItem.details.description}} </div>
-                <div>Leather </div>
-                <div>Color: </div>
-                <div>Size:LXL </div>
-                <div>$ {{selectItem.details.price}} ${{selectItem.details.promotion_price}} – 4% Quantity: </div>
-                <div>1
- 
-  Add to the wishlist
+            <div class=" px-4 desc-box-order">
+                <table class="table">
+                    <tr>
+                        <td>{{title}} </td>
+                        <td>{{selectItem.name}} </td>
+                    </tr>
+                    <tr *ngFor="let i of selectItem.variants">
+                        <td>SKU: </td>
+                        <td>{{i.skucode}} </td>
+                    </tr>
+                    <!-- <div>Barcode: — </div>
+                    <div>Collections: Sale, T-shirts, Teens clothing, Women’s clothing </div>
+                    <div>Product type: Sportswear </div>
+                    <div>Vendor: SuitUP </div> -->
+                    <tr>
+                        <td>Description </td>
+                        <td>{{selectItem.details.description}} </td>
+                    </tr>
+                    <!-- <div>Leather </div> -->
+
+                    <tr id="color" *ngFor="let i of selectItem.variants">
+                        <td>Color:</td>
+                        <td><span>2</span></td>
+                    </tr>
+                    <tr *ngFor="let i of selectItem.variants">
+                        <td>Size:</td>
+                        <td><span>{{i.size == '' ? 'normal' : i.size}}</span></td>
+                    </tr>
+                    <tr *ngFor="let i of selectItem.variants">
+                        <td>Availability: </td>
+                        <td><span>{{i.remains}} </span></td>
+                    </tr>
+                </table>
+                <div>
+                    <span [ngClass]="selectItem.details.price !=selectItem.details.promotion_price?'order-price-discount':'order-price-normal' ">$ {{selectItem.details.price}} </span>
+                    <span *ngIf="selectItem.details.price !=selectItem.details.promotion_price">${{selectItem.details.promotion_price}}  </span>
+                    <span *ngIf="selectItem.details.price !=selectItem.details.promotion_price">{{(selectItem.details.price-selectItem.details.promotion_price)/selectItem.details.promotion_price*100}} </span>
+                </div>
+                <div class="d-flex">
+                    <span class="d-flex order-btn-bg pb-1">
+                        <button class="order-btn">-</button>
+                        <span class="order-text">1</span>
+                        <button class="order-btn">+</button>
+                    </span>
+                </div>
+                <button class="order-btn-bg mt-2 p-2">
+                    Add to the wishlist
+                </button>
             </div>
         </div>
+        <!-- <div class="d-block d-lg-none">{{title}}</div> -->
     </div>
-    <!-- <div class="d-block d-lg-none">{{title}}</div> -->
-</div>

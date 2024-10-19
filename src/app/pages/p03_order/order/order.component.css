@@ -34,3 +34,42 @@
     /* display: flex; */
     /* justify-content: space-between; */
 }
+
+.order-price-normal{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.order-price-discount{
+    font-size: 24px;
+    font-weight: bold;
+    color: salmon;
+}
+
+
+.order-btn, .order-btn-text{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: none;
+	color: inherit;
+	border: none;
+	outline: inherit;
+}
+
+.order-btn-bg {
+    color: aliceblue;
+    background: #0D0D0D; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #0D0D0D, #a19d9d); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #0D0D0D, #a19d9d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 5px;
+    font-size: 24px;
+
+}
+
+.order-btn-btn{
+    cursor: pointer;
+}
