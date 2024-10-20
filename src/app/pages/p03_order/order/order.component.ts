@@ -29,18 +29,18 @@ export class OrderComponent implements OnInit {
       [
       this.http.post("http://localhost:3000/order/product",{ id: a[2]}).subscribe(
         (res: any)=>{ 
-          this.selectItem.name = res[0].name
+          this.selectItem.name = res.name
 
-          res[0].img_url.forEach((e: productImg) => { this.imgAll.push(e)});
+          res.img_url.forEach((e: productImg) => { this.imgAll.push(e)});
           this.selectImg = this.imgAll[0].img_url
           this.imgList = this.imgAll.filter(x=> parseInt(x.img_code) <= 3);
 
-          this.selectItem.details.description = res[0].product_detail[0].description
-          this.selectItem.details.price = res[0].product_detail[0].price
-          this.selectItem.details.promotion_price = res[0].product_detail[0].promotion_price
-          this.selectItem.details.rating = res[0].product_detail[0].rating
+          this.selectItem.details.description = res.product_detail[0].description
+          this.selectItem.details.price = res.product_detail[0].price
+          this.selectItem.details.promotion_price = res.product_detail[0].promotion_price
+          this.selectItem.details.rating = res.product_detail[0].rating
 
-          this.selectItem.variants = res[0].variants
+          this.selectItem.variants = res.variants
           console.log(this.selectItem.variants)
         }   
       )
