@@ -60,45 +60,54 @@
                         <td>{{title}} </td>
                         <td>{{selectItem.name}} </td>
                     </tr>
-                    <tr *ngFor="let i of selectItem.variants">
-                        <td>SKU: </td>
-                        <td>{{i.skucode}} </td>
-                    </tr>
-                    <!-- <div>Barcode: — </div>
-                    <div>Collections: Sale, T-shirts, Teens clothing, Women’s clothing </div>
-                    <div>Product type: Sportswear </div>
-                    <div>Vendor: SuitUP </div> -->
                     <tr>
-                        <td>Description </td>
+                        <td>Description: </td>
                         <td>{{selectItem.details.description}} </td>
                     </tr>
                     <!-- <div>Leather </div> -->
-
-                    <tr id="color" *ngFor="let i of selectItem.variants">
-                        <td>Color:</td>
-                        <td><span>2</span></td>
-                    </tr>
-                    <tr *ngFor="let i of selectItem.variants">
-                        <td>Size:</td>
-                        <td><span>{{i.size == '' ? 'normal' : i.size}}</span></td>
-                    </tr>
-                    <tr *ngFor="let i of selectItem.variants">
-                        <td>Availability: </td>
-                        <td><span>{{i.remains}} </span></td>
-                    </tr>
                 </table>
                 <div>
-                    <span [ngClass]="selectItem.details.price !=selectItem.details.promotion_price?'order-price-discount':'order-price-normal' ">$ {{selectItem.details.price * orderQty}} </span>
+                    <span [ngClass]="selectItem.details.price !=selectItem.details.promotion_price?'order-price-discount':'order-price-normal' ">$ {{selectItem.details.price }} x {{ orderQty}}</span>
                     <span *ngIf="selectItem.details.price !=selectItem.details.promotion_price">${{selectItem.details.promotion_price * orderQty}}  </span>
                     <span *ngIf="selectItem.details.price !=selectItem.details.promotion_price">{{(selectItem.details.price-selectItem.details.promotion_price)/selectItem.details.promotion_price*100}} </span>
                 </div>
-                <div class="d-flex">
-                    <span class="d-flex order-btn-bg pb-1">
-                        <button class="order-btn" (click)="setOrder(-1)">-</button>
-                        <span class="order-text">{{orderQty < 10 ? '0'+orderQty : orderQty}}</span>
-                        <button class="order-btn" (click)="setOrder(+1)">+</button>
-                    </span>
+
+                <div class="d-flex"> 
+                    <table class="col-10">
+                        <tr>
+                            <th class="order-table-header text-center">Color</th>
+                            <th class="order-table-header text-center">Size</th>
+                            <th class="order-table-header text-center">Availability </th>
+                        </tr>
+                        <tr *ngFor="let i of selectItem.variants" >
+                            <td class="text-center"><div [innerHTML]="setColor(i.color)" ></div></td>
+                            <td class="text-center"><span>{{i.size == '' ? 'normal' : i.size}}</span></td>
+                            <td class="text-center"><span>{{i.remains}} </span></td>
+                        </tr>
+                    </table>
+                    <table class="col-2">
+                        <tr>    
+                            <th class="order-table-header text-center">Buy</th>
+                        </tr>
+                        <tr cla>
+                            <td class="text-center">
+                                <div class="d-flex flex-column justify-content-between">
+                                    <span class="d-flex order-btn-bg pb-1" *ngFor="let j of myCart">
+                                        <button class="order-btn" (click)="setOrder(-1,j)">-</button>
+                                        <span  class="order-text">{{j.qty}}</span>
+                                        <button class="order-btn" (click)="setOrder(+1,j)">+</button>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </table>
                 </div>
+
+                <div>  
+                    <span [ngClass]="selectItem.details.price !=selectItem.details.promotion_price?'order-price-discount':'order-price-normal' ">$ {{selectItem.details.price * orderQty}} </span>
+                </div>
+
                 <button class="order-btn-bg mt-2 p-2">
                     Add to the wishlist
                 </button>

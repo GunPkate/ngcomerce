@@ -2,8 +2,10 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { initialMyCart, MyCart } from 'src/app/interface/myCart';
 import { InitialProduct, Product } from 'src/app/interface/product';
 import { InitialProductImg, productImg } from 'src/app/interface/productImg';
+import { ProductVariant } from 'src/app/interface/productVariant';
 
 @Component({
   selector: 'app-order',
@@ -20,14 +22,17 @@ export class OrderComponent implements OnInit {
   selectItem: Product = InitialProduct.InitialProduct()
   selectImg =""
   imgAll: productImg[] = []
-  orderQty: number = 1
+  orderQty: number = 0
+  myCart:MyCart[] = []
+  productCode = ""
 
   ngOnInit(): void {
     let a: any = this.router.url.split("/")
-    console.log(a[2])
+    this.productCode = a[2]
+
     Promise.all(
       [
-      this.http.post("http://localhost:3000/order/product",{ id: a[2]}).subscribe(
+      this.http.post("http://localhost:3000/order/product",{ id: this.productCode}).subscribe(
         (res: any)=>{ 
           this.selectItem.name = res.name
 
@@ -40,14 +45,18 @@ export class OrderComponent implements OnInit {
           this.selectItem.details.promotion_price = res.product_detail[0].promotion_price
           this.selectItem.details.rating = res.product_detail[0].rating
 
-          this.selectItem.variants = res.variants
-          console.log(this.selectItem.variants)
+          this.selectItem.variants = res.variants.sort((u: any,v : any) => u.size -v.size)
+          // console.log(JSON.stringify(this.selectItem.variants))
+
+          if(this.myCart.length === 0){
+            for(let i =0; i < this.selectItem.variants.length; i++ ){
+              this.newCart(0,this.selectItem.variants[i])
+            }
+          }
         }   
       )
       ]
     )
-
-
   }
   
   changeImg(value: number){
@@ -79,13 +88,40 @@ export class OrderComponent implements OnInit {
   }
 
   setColor(value: string){
-    let color = `background-color ${value}; width: 30px; height: 30px`
-    console.log(color)
+    const parser = new DOMParser();
+    let color = `<div style ="background-color: red; width: 30px; height: 30px;"> ${value} </div>`
+    const htmlDoc = parser.parseFromString(color, 'text/html')
     return color
   }
-  setOrder(value: number){
-    if( this.orderQty+value >= 0 ){
-      this.orderQty += value;
+
+  setOrder(number: number, value: MyCart){
+
+    let count = 0;
+    this.myCart.forEach( x =>{
+      if (x.skucode.includes(value.skucode) ) count++
+    })
+
+    for (let i = 0; i < this.myCart.length; i++) {
+      if(this.myCart[i].skucode === value.skucode){
+        if( this.myCart[i].qty + number >= 0){
+          this.myCart[i].qty += number
+          this.orderQty += number
+        }
+      }
     }
+
+
+    console.log(this.myCart.map(x=> x.skucode +"qty "+ x.qty + " "))
+
+  }
+
+  newCart( number: number, value: ProductVariant){
+    let data = initialMyCart.initialMyCart();
+    data.id = value.id
+    data.product_code = this.productCode
+    data.qty += number 
+    data.skucode = value.skucode
+    this.myCart.push(data)
+    console.log(this.myCart)
   }
 }

@@ -73,3 +73,8 @@
 .order-btn-btn{
     cursor: pointer;
 }
+
+.order-table-header{
+    width: 50px;
+    height: 50px;
+}
