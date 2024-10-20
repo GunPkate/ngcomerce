@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -6,6 +5,7 @@ import { initialMyCart, MyCart } from 'src/app/interface/myCart';
 import { InitialProduct, Product } from 'src/app/interface/product';
 import { InitialProductImg, productImg } from 'src/app/interface/productImg';
 import { ProductVariant } from 'src/app/interface/productVariant';
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-order',
@@ -14,7 +14,7 @@ import { ProductVariant } from 'src/app/interface/productVariant';
 })
 export class OrderComponent implements OnInit {
 
-  constructor( private router:Router, private http: HttpClient) { }
+  constructor( private router:Router, private http: HttpClient, private sanitized: DomSanitizer) { }
   title: string = "My Order"
   imgList:any = []
   page: number = 1
@@ -25,7 +25,8 @@ export class OrderComponent implements OnInit {
   orderQty: number = 0
   myCart:MyCart[] = []
   productCode = ""
-
+  selectColor:string[] = []
+  colorUi = ""
   ngOnInit(): void {
     let a: any = this.router.url.split("/")
     this.productCode = a[2]
@@ -51,11 +52,13 @@ export class OrderComponent implements OnInit {
             }else {
               this.selectItem.variants = res.variants.sort((u: any,v : any) => {
                 console.log(v.color)
-                return u.color[0] > v.color[0] ? 1 : -1
+                return u.color > v.color ? 1 : -1 && u.size > v.size ? 1 : -1 
               })
             }
           }
-          // console.log(JSON.stringify(this.selectItem.variants))
+
+          this.selectColor = [...new Set(this.selectItem.variants.map(x=>x.color_code))]
+          this.setUI(this.selectColor[0])
 
           if(this.myCart.length === 0){
             for(let i =0; i < this.selectItem.variants.length; i++ ){
@@ -97,9 +100,9 @@ export class OrderComponent implements OnInit {
   }
 
   setColor(value: string){
-    const parser = new DOMParser();
-    let color = `<div style ="background-color: red; width: 30px; height: 30px;"> ${value} </div>`
-    const htmlDoc = parser.parseFromString(color, 'text/html')
+    let color = this.sanitized.bypassSecurityTrustHtml(
+      `<div style ="background-color: ${value}; width: 40px; height: 40px; cursor: pointer;"> </div>`
+    )
     return color
   }
 
@@ -126,11 +129,15 @@ export class OrderComponent implements OnInit {
 
   newCart( number: number, value: ProductVariant){
     let data = initialMyCart.initialMyCart();
-    data.id = value.id
+    data.id = value.color_code
     data.product_code = this.productCode
     data.qty += number 
     data.skucode = value.skucode
     this.myCart.push(data)
-    console.log(this.myCart)
+  }
+
+  setUI(value: string){
+    this.colorUi = value;
+    console.log(value)
   }
 }

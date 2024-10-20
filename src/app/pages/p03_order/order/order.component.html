@@ -64,6 +64,12 @@
                         <td>Description: </td>
                         <td>{{selectItem.details.description}} </td>
                     </tr>
+                    <tr>
+                        <td>Select Color: </td>
+                        <td class="d-flex flex-row">
+                            <div [innerHTML]="setColor(i)" class="m-2" [ngClass]="i === colorUi ?'order-ui-color': ''" *ngFor="let i of selectColor" (click)="setUI(i)"></div>
+                        </td>
+                    </tr>
                     <!-- <div>Leather </div> -->
                 </table>
                 <div>
@@ -86,9 +92,9 @@
                             <th class="order-table-header text-center">Availability </th>
                         </tr>
                         <tr *ngFor="let i of selectItem.variants" >
-                            <td class="text-center"><div [innerHTML]="setColor(i.color)" ></div></td>
-                            <td class="text-center"><span>{{i.size == '' ? 'normal' : i.size}}</span></td>
-                            <td class="text-center"><span>{{i.remains}} </span></td>
+                            <td *ngIf="i.color_code === colorUi" class="text-center"><span>{{i.color}}</span></td>
+                            <td *ngIf="i.color_code === colorUi" class="text-center"><span>{{i.size == '' ? 'normal' : i.size}}</span></td>
+                            <td *ngIf="i.color_code === colorUi" class="text-center"><span>{{i.remains}} </span></td>
                         </tr>
                     </table>
                     <table class="col-2">
@@ -97,8 +103,8 @@
                         </tr>
                         <tr cla>
                             <td class="text-center">
-                                <div class="d-flex flex-column justify-content-between">
-                                    <span class="d-flex order-btn-bg pb-1" *ngFor="let j of myCart">
+                                <div class="d-flex flex-column">
+                                    <span class="d-flex " *ngFor="let j of myCart">
                                         <button class="order-btn" (click)="setOrder(-1,j)">-</button>
                                         <span  class="order-text">{{j.qty}}</span>
                                         <button class="order-btn" (click)="setOrder(+1,j)">+</button>
