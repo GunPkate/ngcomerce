@@ -45,7 +45,16 @@ export class OrderComponent implements OnInit {
           this.selectItem.details.promotion_price = res.product_detail[0].promotion_price
           this.selectItem.details.rating = res.product_detail[0].rating
 
-          this.selectItem.variants = res.variants.sort((u: any,v : any) => u.size -v.size)
+          if(res.variants.length > 0){
+            if( Number(res.variants[0].size ) > 0 ){
+              this.selectItem.variants = res.variants.sort((u: any,v : any) => u.size -v.size)
+            }else {
+              this.selectItem.variants = res.variants.sort((u: any,v : any) => {
+                console.log(v.color)
+                return u.color[0] > v.color[0] ? 1 : -1
+              })
+            }
+          }
           // console.log(JSON.stringify(this.selectItem.variants))
 
           if(this.myCart.length === 0){

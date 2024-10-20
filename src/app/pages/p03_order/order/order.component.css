@@ -40,12 +40,19 @@
     font-weight: bold;
 }
 
-.order-price-discount{
+.order-price-discount, .order-price-discount-text{
     font-size: 24px;
     font-weight: bold;
     color: salmon;
 }
 
+.order-price-discount-text{
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background-color: salmon;
+    border-radius: 10px;
+}
 
 .order-btn, .order-btn-text{
     width: 40px;
