@@ -24,7 +24,7 @@
                         <button style=" border-radius: 50%; background-color: white;"
                             (click)="setSelectImg(item.img_code)">
                             <img *ngIf="item.img_url" class="img-fluid "
-                                style="height: 150px; border-radius: 50%; border: 3px solid black; "
+                                style="height: 150px; width: 150px; border-radius: 50%; border: 3px solid black; "
                                 src={{item.img_url}} />
                         </button>
                     </div>
@@ -105,9 +105,9 @@
                             <td class="text-center">
                                 <div class="d-flex flex-column">
                                     <span class="d-flex " *ngFor="let j of myCart">
-                                        <button class="order-btn" (click)="setOrder(-1,j)">-</button>
-                                        <span  class="order-text">{{j.qty}}</span>
-                                        <button class="order-btn" (click)="setOrder(+1,j)">+</button>
+                                        <button *ngIf="j.id === colorUi"  class="order-btn order-btn-bg pb-1" (click)="setOrder(-1,j)">-</button>
+                                        <span   *ngIf="j.id === colorUi" class="order-btn  pb-1">{{j.qty}}</span>
+                                        <button *ngIf="j.id === colorUi"  class="order-btn order-btn-bg pb-1" (click)="setOrder(+1,j)">+</button>
                                     </span>
                                 </div>
                             </td>

@@ -54,7 +54,7 @@
     border-radius: 10px;
 }
 
-.order-btn, .order-btn-text{
+.order-btn {
     width: 40px;
     height: 40px;
     display: flex;
