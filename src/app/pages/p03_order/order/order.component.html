@@ -72,7 +72,7 @@
                     <tr>
                         <td>Color: </td>
                         <td class="d-flex flex-row">
-                            <div [innerHTML]="setColor(i)" class="m-2" [ngClass]="i === colorUi ?'order-ui-color': ''" *ngFor="let i of selectColor" (click)="setUI(i)"></div>
+                            <div [innerHTML]="setColor(i)" class="m-2" [ngClass]="i === colorUi ?'order-ui-color-select': 'order-ui-color'" *ngFor="let i of selectColor" (click)="setUI(i)"></div>
                         </td>
                     </tr>
                     <tr>

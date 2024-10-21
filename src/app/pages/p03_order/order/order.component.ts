@@ -101,7 +101,7 @@ export class OrderComponent implements OnInit {
 
   setColor(value: string){
     let color = this.sanitized.bypassSecurityTrustHtml(
-      `<div style ="background-color: ${value}; width: 40px; height: 40px; cursor: pointer;"> </div>`
+      `<div style ="background-color: ${value}; width: 40px; height: 40px; cursor: pointer; border-radius: 5px;"> </div>`
     )
     return color
   }
