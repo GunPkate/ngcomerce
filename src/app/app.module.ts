@@ -8,6 +8,7 @@ import { OrderComponent } from './pages/p03_order/order/order.component';
 import { MyCartComponent } from './pages/p04_mycart/mycart.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MyCartBehaviorSubj } from './behaviorSubj/MyCartBehaviorSubj';
+import { CartItemBehaviorSubj } from './behaviorSubj/cartItemBehaviorSubj';
 
 
 @NgModule({
@@ -22,7 +23,10 @@ import { MyCartBehaviorSubj } from './behaviorSubj/MyCartBehaviorSubj';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [MyCartBehaviorSubj],
+  providers: [
+    MyCartBehaviorSubj,
+    CartItemBehaviorSubj
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

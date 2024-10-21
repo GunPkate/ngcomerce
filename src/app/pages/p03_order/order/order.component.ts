@@ -8,6 +8,7 @@ import { ProductVariant } from 'src/app/interface/productVariant';
 import { DomSanitizer } from '@angular/platform-browser'
 import { MyCartBehaviorSubj } from 'src/app/behaviorSubj/MyCartBehaviorSubj';
 import { InitialMyCart } from 'src/app/interface/myCart';
+import { CartItemBehaviorSubj } from 'src/app/behaviorSubj/cartItemBehaviorSubj';
 
 @Component({
   selector: 'app-order',
@@ -21,6 +22,7 @@ export class OrderComponent implements OnInit {
     private http: HttpClient, 
     private sanitized: DomSanitizer,
     private myCartBehaviorSubj: MyCartBehaviorSubj,
+    private cartItemBehaviorSubj: CartItemBehaviorSubj
   ) { }
   title: string = "My Order"
   imgList:any = []
@@ -148,15 +150,15 @@ export class OrderComponent implements OnInit {
     let checkSku = [...new Set(this.cartItem.map(y=>y.skucode))]
     this.summaryOrder = []
     this.summaryOrder = this.selectItem.variants.filter(x=>checkSku.includes(x.skucode))
-    console.log(this.cartItem)
-    console.log(this.summaryOrder)
   }
 
   async confirmMyCart(){
     let newCart = InitialMyCart.initialMyCart();
     newCart.customerId = "AAA"
     newCart.itemId = "1234"
-    await this.myCartBehaviorSubj.setMycart(newCart)
+    await this.myCartBehaviorSubj.setMycart(newCart);
+    await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
+
     let checkCart = await this.myCartBehaviorSubj.getMycart()
     console.log(checkCart)
     

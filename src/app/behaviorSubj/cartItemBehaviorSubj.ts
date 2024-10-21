@@ -4,8 +4,8 @@ import { CartItem, initialCartItem } from "../interface/cartItem";
 
 @Injectable()
 export class CartItemBehaviorSubj {
-    private cartItem = new BehaviorSubject<CartItem>(initialCartItem.initialCartItem());
-    private cartItemList = new BehaviorSubject<CartItem[]>([]);
+    cartItem = new BehaviorSubject<CartItem>(initialCartItem.initialCartItem());
+    cartItemList = new BehaviorSubject<CartItem[]>([]);
     
     getCartItem(){
         return this.cartItem.asObservable()

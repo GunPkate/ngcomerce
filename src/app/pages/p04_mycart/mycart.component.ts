@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CartItemBehaviorSubj } from 'src/app/behaviorSubj/cartItemBehaviorSubj';
+import { MyCartBehaviorSubj } from 'src/app/behaviorSubj/MyCartBehaviorSubj';
+import { MyCart } from 'src/app/interface/myCart';
 
 @Component({
   selector: 'app-mycart',
@@ -7,11 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyCartComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private cartItemBehaviorSubj: CartItemBehaviorSubj,
+    private myCartBehaviorSubj: MyCartBehaviorSubj
+  ) { }
 
-  itemlist = [1,2,3,4]
+  itemlist: any = []
+
 
   ngOnInit(): void {
+    this.myCartBehaviorSubj.getMycart().subscribe(data => console.log(data))
+    this.cartItemBehaviorSubj.getCartItemList().subscribe(data =>{
+      this.itemlist = (data)
+      console.log(data)
+    } 
+  )
   }
 
 }
