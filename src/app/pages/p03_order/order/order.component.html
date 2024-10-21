@@ -61,16 +61,16 @@
             <div class=" pl-4 desc-box-order">
                 <table class="">
                     <tr>
-                        <td>{{title}} </td>
+                        <th>{{title}} </th>
                         <td>{{selectItem.name}} </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div>Description:</div> </td>
+                        <th>
+                            <div>Description:</div> </th>
                         <td>{{selectItem.details.description}} </td>
                     </tr>
                     <tr>
-                        <td>Color: </td>
+                        <th>Color: </th>
                         <td class="d-flex flex-row">
                             <div [innerHTML]="setColor(i)" class="m-2" [ngClass]="i === colorUi ?'order-ui-color-select': 'order-ui-color'" *ngFor="let i of selectColor" (click)="setUI(i)"></div>
                         </td>
@@ -102,7 +102,7 @@
                         <tr cla>
                             <td class="text-center">
                                 <div class="d-flex flex-column">
-                                    <span class="d-flex " *ngFor="let j of myCart">
+                                    <span class="d-flex " *ngFor="let j of selectToCart">
                                         <button *ngIf="j.id === colorUi"  class="order-btn order-btn-bg pb-1" (click)="setOrder(-1,j)">-</button>
                                         <span   *ngIf="j.id === colorUi" class="order-btn  pb-1">{{j.qty}}</span>
                                         <button *ngIf="j.id === colorUi"  class="order-btn order-btn-bg pb-1" (click)="setOrder(+1,j)">+</button>
@@ -149,7 +149,7 @@
                     </tr>
                 </table>
 
-                <button class="order-btn-bg mt-2 p-2" data-toggle="modal" data-target="#exampleModal">
+                <button class="order-btn-bg mt-2 p-2" data-toggle="modal" data-target="#exampleModal" (click)="addToCart();">
                     Add to the wishlist
                 </button>
 
@@ -166,17 +166,38 @@
         <div class="modal-dialog col-8">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add to Cart</h5>
+                    <h5 class="modal-title p-3" id="exampleModalLabel">Add to Cart</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    ...
+                <div class="modal-body p-3 d-flex">
+
+                    <table class="col-10 text-center">
+                        <tr class="mt-2">
+                            <th class="order-table-header" colspan="2">Color</th>
+                            <th class="order-table-header">Size</th>
+                        </tr>
+                        <tr class="mt-2" *ngFor="let i of summaryOrder">
+                            <th [innerHTML]="setColor(i.color_code)"></th>
+                            <th>{{i.color}}</th>
+                            <th>{{i.size}}</th>
+
+                        </tr>
+                    </table>
+
+                    <table class="col-2 text-center">
+                        <tr class="mt-2">
+                            <th class="order-table-header">Qty</th>
+                        </tr>
+                        <tr class="mt-2" *ngFor="let i of myCart">
+                            <th>{{i.qty}}</th>
+                        </tr>
+                    </table>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="modal-footer d-flex justify-content-between p-3">
+                    <button type="button" class="order-btn-bg px-1 order-price-discount" data-dismiss="modal">Close</button>
+                    <button type="button" class="order-btn-bg px-1 order-price-normal">Save changes</button>
                 </div>
             </div>
         </div>

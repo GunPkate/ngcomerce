@@ -23,7 +23,11 @@ export class OrderComponent implements OnInit {
   selectImg =""
   imgAll: productImg[] = []
   orderQty: number = 0
+
+  selectToCart:MyCart[] = []
   myCart:MyCart[] = []
+  summaryOrder: ProductVariant[] = []
+
   productCode = ""
   selectColor:string[] = []
   colorUi = ""
@@ -51,7 +55,6 @@ export class OrderComponent implements OnInit {
               this.selectItem.variants = res.variants.sort((u: any,v : any) => u.size -v.size)
             }else {
               this.selectItem.variants = res.variants.sort((u: any,v : any) => {
-                console.log(v.color)
                 return u.color > v.color ? 1 : -1 && u.size > v.size ? 1 : -1 
               })
             }
@@ -60,7 +63,7 @@ export class OrderComponent implements OnInit {
           this.selectColor = [...new Set(this.selectItem.variants.map(x=>x.color_code))]
           this.setUI(this.selectColor[0])
 
-          if(this.myCart.length === 0){
+          if(this.selectToCart.length === 0){
             for(let i =0; i < this.selectItem.variants.length; i++ ){
               this.newCart(0,this.selectItem.variants[i])
             }
@@ -108,22 +111,14 @@ export class OrderComponent implements OnInit {
 
   setOrder(number: number, value: MyCart){
 
-    let count = 0;
-    this.myCart.forEach( x =>{
-      if (x.skucode.includes(value.skucode) ) count++
-    })
-
-    for (let i = 0; i < this.myCart.length; i++) {
-      if(this.myCart[i].skucode === value.skucode){
-        if( this.myCart[i].qty + number >= 0){
-          this.myCart[i].qty += number
+    for (let i = 0; i < this.selectToCart.length; i++) {
+      if(this.selectToCart[i].skucode === value.skucode){
+        if( this.selectToCart[i].qty + number >= 0){
+          this.selectToCart[i].qty += number
           this.orderQty += number
         }
       }
     }
-
-
-    console.log(this.myCart.map(x=> x.skucode +"qty "+ x.qty + " "))
 
   }
 
@@ -133,11 +128,20 @@ export class OrderComponent implements OnInit {
     data.product_code = this.productCode
     data.qty += number 
     data.skucode = value.skucode
-    this.myCart.push(data)
+    this.selectToCart.push(data)
   }
 
   setUI(value: string){
     this.colorUi = value;
-    console.log(value)
+  }
+
+  addToCart(){
+    this.myCart = []
+    this.myCart = this.selectToCart.filter(x=>x.qty>0)
+    let checkSku = [...new Set(this.myCart.map(y=>y.skucode))]
+    this.summaryOrder = []
+    this.summaryOrder = this.selectItem.variants.filter(x=>checkSku.includes(x.skucode))
+    console.log(this.myCart)
+    console.log(this.summaryOrder)
   }
 }
