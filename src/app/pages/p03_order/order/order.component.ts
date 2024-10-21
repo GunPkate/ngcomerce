@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { initialMyCart, MyCart } from 'src/app/interface/myCart';
+import { initialCartItem, CartItem } from 'src/app/interface/cartItem';
 import { InitialProduct, Product } from 'src/app/interface/product';
 import { InitialProductImg, productImg } from 'src/app/interface/productImg';
 import { ProductVariant } from 'src/app/interface/productVariant';
@@ -24,8 +24,8 @@ export class OrderComponent implements OnInit {
   imgAll: productImg[] = []
   orderQty: number = 0
 
-  selectToCart:MyCart[] = []
-  myCart:MyCart[] = []
+  selectToCart:CartItem[] = []
+  myCart:CartItem[] = []
   summaryOrder: ProductVariant[] = []
 
   productCode = ""
@@ -109,7 +109,7 @@ export class OrderComponent implements OnInit {
     return color
   }
 
-  setOrder(number: number, value: MyCart){
+  setOrder(number: number, value: CartItem){
 
     for (let i = 0; i < this.selectToCart.length; i++) {
       if(this.selectToCart[i].skucode === value.skucode){
@@ -123,7 +123,7 @@ export class OrderComponent implements OnInit {
   }
 
   newCart( number: number, value: ProductVariant){
-    let data = initialMyCart.initialMyCart();
+    let data = initialCartItem.initialCartItem();
     data.id = value.color_code
     data.product_code = this.productCode
     data.qty += number 

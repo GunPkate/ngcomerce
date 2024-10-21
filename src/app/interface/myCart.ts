@@ -1,17 +1,15 @@
 export interface MyCart{
-    id: string
-    product_code : string
-    skucode : string
-    qty : number
+    customerId: string
+    itemId: string
+    date: Date
 }
 
-export class initialMyCart{
+export class MyCart{
     static initialMyCart(){
         return {
-            id: "",
-            product_code: "",
-            skucode: "",
-            qty : 0
+            customerId: "",
+            itemId: "",
+            date: new Date()
         }
     }
 }
