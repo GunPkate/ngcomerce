@@ -6,6 +6,8 @@ import { InitialProduct, Product } from 'src/app/interface/product';
 import { InitialProductImg, productImg } from 'src/app/interface/productImg';
 import { ProductVariant } from 'src/app/interface/productVariant';
 import { DomSanitizer } from '@angular/platform-browser'
+import { MyCartBehaviorSubj } from 'src/app/behaviorSubj/MyCartBehaviorSubj';
+import { InitialMyCart } from 'src/app/interface/myCart';
 
 @Component({
   selector: 'app-order',
@@ -14,7 +16,12 @@ import { DomSanitizer } from '@angular/platform-browser'
 })
 export class OrderComponent implements OnInit {
 
-  constructor( private router:Router, private http: HttpClient, private sanitized: DomSanitizer) { }
+  constructor( 
+    private router:Router, 
+    private http: HttpClient, 
+    private sanitized: DomSanitizer,
+    private myCartBehaviorSubj: MyCartBehaviorSubj,
+  ) { }
   title: string = "My Order"
   imgList:any = []
   page: number = 1
@@ -25,7 +32,7 @@ export class OrderComponent implements OnInit {
   orderQty: number = 0
 
   selectToCart:CartItem[] = []
-  myCart:CartItem[] = []
+  cartItem:CartItem[] = []
   summaryOrder: ProductVariant[] = []
 
   productCode = ""
@@ -136,12 +143,22 @@ export class OrderComponent implements OnInit {
   }
 
   addToCart(){
-    this.myCart = []
-    this.myCart = this.selectToCart.filter(x=>x.qty>0)
-    let checkSku = [...new Set(this.myCart.map(y=>y.skucode))]
+    this.cartItem = []
+    this.cartItem = this.selectToCart.filter(x=>x.qty>0)
+    let checkSku = [...new Set(this.cartItem.map(y=>y.skucode))]
     this.summaryOrder = []
     this.summaryOrder = this.selectItem.variants.filter(x=>checkSku.includes(x.skucode))
-    console.log(this.myCart)
+    console.log(this.cartItem)
     console.log(this.summaryOrder)
+  }
+
+  async confirmMyCart(){
+    let newCart = InitialMyCart.initialMyCart();
+    newCart.customerId = "AAA"
+    newCart.itemId = "1234"
+    await this.myCartBehaviorSubj.setMycart(newCart)
+    let checkCart = await this.myCartBehaviorSubj.getMycart()
+    console.log(checkCart)
+    
   }
 }

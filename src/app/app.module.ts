@@ -7,20 +7,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { OrderComponent } from './pages/p03_order/order/order.component';
 import { MyCartComponent } from './pages/p04_mycart/mycart.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MyCartBehaviorSubj } from './behaviorSubj/MyCartBehaviorSubj';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     OrderComponent,
-    MyCartComponent
+    MyCartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [MyCartBehaviorSubj],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

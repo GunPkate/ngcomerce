@@ -190,14 +190,14 @@
                         <tr class="mt-2">
                             <th class="order-table-header">Qty</th>
                         </tr>
-                        <tr class="mt-2" *ngFor="let i of myCart">
+                        <tr class="mt-2" *ngFor="let i of cartItem">
                             <th>{{i.qty}}</th>
                         </tr>
                     </table>
                 </div>
                 <div class="modal-footer d-flex justify-content-between p-3">
                     <button type="button" class="order-btn-bg px-1 order-price-discount" data-dismiss="modal">Close</button>
-                    <button type="button" class="order-btn-bg px-1 order-price-normal">Save changes</button>
+                    <button type="button" class="order-btn-bg px-1 order-price-normal" (click)="confirmMyCart()">Save changes</button>
                 </div>
             </div>
         </div>

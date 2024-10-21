@@ -4,7 +4,7 @@ export interface MyCart{
     date: Date
 }
 
-export class MyCart{
+export class InitialMyCart{
     static initialMyCart(){
         return {
             customerId: "",
