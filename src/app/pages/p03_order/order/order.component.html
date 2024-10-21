@@ -81,17 +81,6 @@
                     </tr>
                     <!-- <div>Leather </div> -->
                 </table>
-                <div>
-                    <span 
-                        class="mr-1 order-price-discount" 
-                        *ngIf="selectItem.details.price !=selectItem.details.promotion_price"
-                    > ${{selectItem.details.promotion_price }}  </span>
-                    <span 
-                        class="mr-1 order-price-normal"
-                        *ngIf="selectItem.details.price !=selectItem.details.promotion_price"
-                    >$ {{selectItem.details.price }} </span>
-                    <span class="order-price-discount-text p-1" *ngIf="selectItem.details.price !=selectItem.details.promotion_price">{{(selectItem.details.price-selectItem.details.promotion_price)/selectItem.details.promotion_price*100 | number : '1.2-2'}} % </span>
-                </div>
 
                 <div class="d-flex"> 
                     <table class="col-9">
@@ -125,32 +114,48 @@
                     </table>
                 </div>
 
-                <table>
-                    <tr>
-                        <td
-                            class="col-2"
-                            [ngClass]="selectItem.details.price !=selectItem.details.promotion_price?'order-price-discount':'order-price-normal' ">
-                            $ {{selectItem.details.promotion_price ? selectItem.details.promotion_price * orderQty  : selectItem.details.price * orderQty}} 
+                <table class="col-12 text-center">
+                    <tr class="mt-2">
+                        <td 
+                            class="order-price-discount"  
+                            *ngIf="selectItem.details.price !=selectItem.details.promotion_price"
+                        > 
+                            ${{selectItem.details.promotion_price | number : '1.2-2' }} x {{orderQty}}  </td>
+                        <td 
+                            class="order-price-normal"
+                        >
+                            ${{selectItem.details.price  | number : '1.2-2' }} x {{orderQty}} </td>
+                        <td class="order-price-discount-text" 
+                            *ngIf="selectItem.details.price !=selectItem.details.promotion_price">
+                            {{(selectItem.details.price-selectItem.details.promotion_price)/selectItem.details.promotion_price*100 | number : '1.2-2'}} % 
                         </td>
-                        
-                        <td
-                            class="col-2" 
-                            *ngIf="selectItem.details.price !=selectItem.details.promotion_price" [ngClass]="'order-price-normal' ">
-                            {{ selectItem.details.promotion_price ? selectItem.details.price * orderQty : '' }}
-                            
+                    </tr>
+
+                    <tr class="col-12 ">
+                        <td 
+                            class="order-price-discount col-4" 
+                            *ngIf="selectItem.details.price !=selectItem.details.promotion_price"
+                        >  
+                            ${{ (selectItem.details.promotion_price ? selectItem.details.promotion_price * orderQty  : selectItem.details.price * orderQty ) | number : '1.2-2'}} 
                         </td>
                         <td 
-                            class="col-2"
-                            *ngIf="selectItem.details.price !=selectItem.details.promotion_price"  class="order-price-discount-text p-1">
-                            {{ ( selectItem.details.price - selectItem.details.promotion_price) * orderQty }}
+                            class="order-price-normal col-4"
+                        >
+                            ${{ (selectItem.details.promotion_price  ? selectItem.details.price * orderQty : '') | number : '1.2-2' }} </td>
+                        <td class="order-price-discount-text col-4" 
+                            *ngIf="selectItem.details.price !=selectItem.details.promotion_price">
+                            {{ ( selectItem.details.price - selectItem.details.promotion_price) * orderQty  | number : '1.2-2'}}  
                         </td>
-                    </tr>  
+                    </tr>
                 </table>
 
-                <button class="order-btn-bg mt-2 p-2">
+                <button class="order-btn-bg mt-2 p-2" >
                     Add to the wishlist
                 </button>
+
+                
             </div>
         </div>
         <!-- <div class="d-block d-lg-none">{{title}}</div> -->
     </div>
+</div>
