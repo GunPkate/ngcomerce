@@ -58,21 +58,26 @@
         </div>
 
         <div class="col-12 col-md-5 col-lg-5 h-100">
-            <div class=" px-4 desc-box-order">
-                <table class="table">
+            <div class=" pl-4 desc-box-order">
+                <table class="">
                     <tr>
                         <td>{{title}} </td>
                         <td>{{selectItem.name}} </td>
                     </tr>
                     <tr>
-                        <td>Description: </td>
+                        <td>
+                            <div>Description:</div> </td>
                         <td>{{selectItem.details.description}} </td>
                     </tr>
                     <tr>
-                        <td>Select Color: </td>
+                        <td>Color: </td>
                         <td class="d-flex flex-row">
                             <div [innerHTML]="setColor(i)" class="m-2" [ngClass]="i === colorUi ?'order-ui-color': ''" *ngFor="let i of selectColor" (click)="setUI(i)"></div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td class="col-3"> </td>
+                        <td class="col-9"> </td>
                     </tr>
                     <!-- <div>Leather </div> -->
                 </table>
@@ -89,7 +94,7 @@
                 </div>
 
                 <div class="d-flex"> 
-                    <table class="col-10">
+                    <table class="col-9">
                         <tr>
                             <th class="order-table-header text-center">Color</th>
                             <th class="order-table-header text-center">Size</th>
@@ -101,7 +106,7 @@
                             <td *ngIf="i.color_code === colorUi" class="text-center"><span>{{i.remains}} </span></td>
                         </tr>
                     </table>
-                    <table class="col-2">
+                    <table class="col-3">
                         <tr>    
                             <th class="order-table-header text-center">Buy</th>
                         </tr>
