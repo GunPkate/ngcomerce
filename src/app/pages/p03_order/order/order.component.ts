@@ -11,6 +11,7 @@ import { InitialMyCart, MyCart } from 'src/app/interface/myCart';
 import { CartItemBehaviorSubj } from 'src/app/behaviorSubj/cartItemBehaviorSubj';
 import { OrderService } from 'src/app/service/order';
 import { OrderProductBehaviorSubj } from 'src/app/behaviorSubj/orderProductBehaviorSubj';
+import { CartItemUI, initialCartItemUI } from 'src/app/interface/cartItemUI';
 const { v4: uuidv4 } = require('uuid');
 
 @Component({
@@ -38,10 +39,10 @@ export class OrderComponent implements OnInit {
   imgAll: productImg[] = []
   orderQty: number = 0
 
-  selectToCart:CartItem[] = []
-  cartItem:CartItem[] = []
+  selectToCart:CartItemUI[] = []
+  cartItem:CartItemUI[] = []
   summaryOrder: ProductVariant[] = []
-  myCart!: MyCart | null;
+  myCart!: MyCart
 
   productCode = ""
   selectColor:string[] = []
@@ -145,8 +146,8 @@ export class OrderComponent implements OnInit {
   }
 
   newCart( number: number, value: ProductVariant){
-    let data = initialCartItem.initialCartItem();
-    data.id = value.color_code
+    let data = initialCartItemUI.initialCartItemUI();
+    data.color = value.color_code
     data.product_code = this.productCode
     data.qty += number 
     data.skucode = value.skucode
@@ -160,6 +161,10 @@ export class OrderComponent implements OnInit {
   addToCart(){
     this.cartItem = []
     this.cartItem = this.selectToCart.filter(x=>x.qty>0)
+    this.cartItem.forEach(x =>{ 
+      x.id = uuidv4(); 
+      x.product_code = this.productCode
+    })
     let checkSku = [...new Set(this.cartItem.map(y=>y.skucode))]
     this.summaryOrder = []
     this.summaryOrder = this.selectItem.variants.filter(x=>checkSku.includes(x.skucode))
@@ -169,11 +174,11 @@ export class OrderComponent implements OnInit {
   }
 
   async confirmMyCart(){
-    let checkCart: any
+
     let user: any = localStorage.getItem("customerId") ? localStorage.getItem("customerId") : ""
-    this.myCartBehaviorSubj.getMycart().subscribe(data =>checkCart = data)
-    let newCart = InitialMyCart.initialMyCart();
-    if(checkCart.itemId === ""){
+
+    if(this.myCart.itemId === ""){
+      let newCart = InitialMyCart.initialMyCart();
       newCart.customerId = user
       newCart.itemId = uuidv4()
       newCart.id = this.productCode
@@ -185,8 +190,7 @@ export class OrderComponent implements OnInit {
     }
     await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
 
-    console.log(checkCart)
-
-    
+    console.log(this.myCart ) 
+    console.log(this.cartItem) 
   }
 }

@@ -103,9 +103,9 @@
                             <td class="text-center">
                                 <div class="d-flex flex-column">
                                     <span class="d-flex " *ngFor="let j of selectToCart">
-                                        <button *ngIf="j.id === colorUi"  class="order-btn order-btn-bg pb-1" (click)="setOrder(-1,j)">-</button>
-                                        <span   *ngIf="j.id === colorUi" class="order-btn  pb-1">{{j.qty}}</span>
-                                        <button *ngIf="j.id === colorUi"  class="order-btn order-btn-bg pb-1" (click)="setOrder(+1,j)">+</button>
+                                        <button *ngIf="j.color === colorUi"  class="order-btn order-btn-bg pb-1" (click)="setOrder(-1,j)">-</button>
+                                        <span   *ngIf="j.color === colorUi" class="order-btn  pb-1">{{j.qty}}</span>
+                                        <button *ngIf="j.color === colorUi"  class="order-btn order-btn-bg pb-1" (click)="setOrder(+1,j)">+</button>
                                     </span>
                                 </div>
                             </td>

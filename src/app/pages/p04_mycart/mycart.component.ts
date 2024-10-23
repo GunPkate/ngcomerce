@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartItemBehaviorSubj } from 'src/app/behaviorSubj/cartItemBehaviorSubj';
 import { MyCartBehaviorSubj } from 'src/app/behaviorSubj/MyCartBehaviorSubj';
+import { CartItem } from 'src/app/interface/cartItem';
 import { MyCart } from 'src/app/interface/myCart';
 
 @Component({
@@ -16,7 +17,7 @@ export class MyCartComponent implements OnInit {
   ) { }
 
   itemlist: any = []
-
+  itemList:CartItem[] = []
 
   ngOnInit(): void {
     this.myCartBehaviorSubj.getMycart().subscribe(data => console.log(data))
