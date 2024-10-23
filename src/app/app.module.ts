@@ -9,6 +9,7 @@ import { MyCartComponent } from './pages/p04_mycart/mycart.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MyCartBehaviorSubj } from './behaviorSubj/MyCartBehaviorSubj';
 import { CartItemBehaviorSubj } from './behaviorSubj/cartItemBehaviorSubj';
+import { OrderService } from './service/order';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { CartItemBehaviorSubj } from './behaviorSubj/cartItemBehaviorSubj';
   ],
   providers: [
     MyCartBehaviorSubj,
-    CartItemBehaviorSubj
+    CartItemBehaviorSubj,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })

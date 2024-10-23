@@ -9,6 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser'
 import { MyCartBehaviorSubj } from 'src/app/behaviorSubj/MyCartBehaviorSubj';
 import { InitialMyCart, MyCart } from 'src/app/interface/myCart';
 import { CartItemBehaviorSubj } from 'src/app/behaviorSubj/cartItemBehaviorSubj';
+import { OrderService } from 'src/app/service/order';
 const { v4: uuidv4 } = require('uuid');
 
 @Component({
@@ -23,7 +24,8 @@ export class OrderComponent implements OnInit {
     private http: HttpClient, 
     private sanitized: DomSanitizer,
     private myCartBehaviorSubj: MyCartBehaviorSubj,
-    private cartItemBehaviorSubj: CartItemBehaviorSubj
+    private cartItemBehaviorSubj: CartItemBehaviorSubj,
+    private orderService: OrderService
   ) { }
   title: string = "My Order"
   imgList:any = []
@@ -82,11 +84,10 @@ export class OrderComponent implements OnInit {
         }   
       ),
 
-      this.http.get("http://localhost:3000/order/cart").subscribe((data: any)=>{
-        this.myCart = data
-      })
+      this.orderService.loadCart()
       ]
     )
+    this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ this.myCart = data; console.log(123,data) })
   }
   
   changeImg(value: number){
