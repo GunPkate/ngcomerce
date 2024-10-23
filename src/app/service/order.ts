@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core"
 import { OrderProductBehaviorSubj } from "../behaviorSubj/orderProductBehaviorSubj"
 import { InitialProduct, Product } from "../interface/product"
 import { InitialProductDetail } from "../interface/productDetail"
+import { InitialMyCart } from "../interface/myCart"
 
 @Injectable()
 export class OrderService{
@@ -18,7 +19,11 @@ export class OrderService{
     }
 
     loadCart(){
-        this.http.get("http://localhost:3000/order/cart").subscribe((data: any)=>{ this.myCartBehaviorSubj.setMycart(data) })
+        this.http.get("http://localhost:3000/order/cart").subscribe((data: any)=>{  
+            console.log("load cart",data);
+            let initialMyCart = InitialMyCart.initialMyCart(); 
+            data ? this.myCartBehaviorSubj.setMycart(data) : this.myCartBehaviorSubj.setMycart(initialMyCart)
+        })
     }
 
     loadProduct(productIdBody: any){
@@ -34,15 +39,21 @@ export class OrderService{
             product.imgUrl = data.img_url
 
             let productDetail = InitialProductDetail.InitialProductDetail()
-            productDetail.id = data.product_detail[0].id
-            productDetail.description = data.product_detail[0].description
-            productDetail.price = data.product_detail[0].price
-            productDetail.promotion_price = data.product_detail[0].promotion_price
-            productDetail.name = data.product_detail[0].name
-            productDetail.rating = data.product_detail[0].rating
+            if(data.product_detail.length > 0){
+                productDetail.id = data.product_detail[0].id
+                productDetail.description = data.product_detail[0].description
+                productDetail.price = data.product_detail[0].price
+                productDetail.promotion_price = data.product_detail[0].promotion_price
+                productDetail.name = data.product_detail[0].name
+                productDetail.rating = data.product_detail[0].rating
+            }
             product.details = productDetail
 
             this.orderProductBehaviorSubj.setOrderProduct(product) 
         })
+    }
+
+    clearData(){
+        this.orderProductBehaviorSubj.setOrderProduct(InitialProduct.InitialProduct());
     }
 }

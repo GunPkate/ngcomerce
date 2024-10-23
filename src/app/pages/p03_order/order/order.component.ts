@@ -48,9 +48,11 @@ export class OrderComponent implements OnInit {
   selectColor:string[] = []
   colorUi = ""
   ngOnInit(): void {
+    //Reset Product
+    this.orderService.clearData();
+
     let a: any = this.router.url.split("/")
     this.productCode = a[2]
-
     Promise.all(
       [
         this.orderService.loadProduct({ id: this.productCode}),
@@ -171,13 +173,14 @@ export class OrderComponent implements OnInit {
     // localStorage.clear()
     localStorage.setItem("customerId","AAA")
     localStorage.setItem("productCode",this.productCode)
+    console.log("add to cart",this.myCart)
   }
 
   async confirmMyCart(){
 
     let user: any = localStorage.getItem("customerId") ? localStorage.getItem("customerId") : ""
 
-    if(this.myCart.itemId === ""){
+    if(this.myCart){
       let newCart = InitialMyCart.initialMyCart();
       newCart.customerId = user
       newCart.itemId = uuidv4()
@@ -190,6 +193,9 @@ export class OrderComponent implements OnInit {
     }
     await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
 
+    if(this.myCart.id){
+
+    }
     console.log(this.myCart ) 
     console.log(this.cartItem) 
   }
