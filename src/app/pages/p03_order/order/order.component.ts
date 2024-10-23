@@ -59,9 +59,11 @@ export class OrderComponent implements OnInit {
 
     this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ this.myCart = data;})
 
-    this.orderProductBehaviorSubj.getOrderProduct().subscribe(
-      (res: Product)=>{ 
-        this.selectItem.name = res.name
+    this.orderProductBehaviorSubj.getOrderProduct().subscribe( (res)=>{  this.setProductToUI(res) }  )
+  }
+
+  setProductToUI(res: Product){
+    this.selectItem.name = res.name
 
         res.imgUrl.forEach((e: productImg) => { 
           this.imgAll.push(e)
@@ -92,8 +94,6 @@ export class OrderComponent implements OnInit {
             this.newCart(0,this.selectItem.variants[i])
           }
         }
-      }   
-    )
   }
   
   changeImg(value: number){
