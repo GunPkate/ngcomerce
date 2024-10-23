@@ -7,8 +7,9 @@ import { InitialProductImg, productImg } from 'src/app/interface/productImg';
 import { ProductVariant } from 'src/app/interface/productVariant';
 import { DomSanitizer } from '@angular/platform-browser'
 import { MyCartBehaviorSubj } from 'src/app/behaviorSubj/MyCartBehaviorSubj';
-import { InitialMyCart } from 'src/app/interface/myCart';
+import { InitialMyCart, MyCart } from 'src/app/interface/myCart';
 import { CartItemBehaviorSubj } from 'src/app/behaviorSubj/cartItemBehaviorSubj';
+const { v4: uuidv4 } = require('uuid');
 
 @Component({
   selector: 'app-order',
@@ -36,6 +37,7 @@ export class OrderComponent implements OnInit {
   selectToCart:CartItem[] = []
   cartItem:CartItem[] = []
   summaryOrder: ProductVariant[] = []
+  myCart!: MyCart | null;
 
   productCode = ""
   selectColor:string[] = []
@@ -78,7 +80,11 @@ export class OrderComponent implements OnInit {
             }
           }
         }   
-      )
+      ),
+
+      this.http.get("http://localhost:3000/order/cart").subscribe((data: any)=>{
+        this.myCart = data
+      })
       ]
     )
   }
@@ -150,17 +156,30 @@ export class OrderComponent implements OnInit {
     let checkSku = [...new Set(this.cartItem.map(y=>y.skucode))]
     this.summaryOrder = []
     this.summaryOrder = this.selectItem.variants.filter(x=>checkSku.includes(x.skucode))
+    // localStorage.clear()
+    localStorage.setItem("customerId","AAA")
+    localStorage.setItem("productCode",this.productCode)
   }
 
   async confirmMyCart(){
+    let checkCart: any
+    let user: any = localStorage.getItem("customerId") ? localStorage.getItem("customerId") : ""
+    this.myCartBehaviorSubj.getMycart().subscribe(data =>checkCart = data)
     let newCart = InitialMyCart.initialMyCart();
-    newCart.customerId = "AAA"
-    newCart.itemId = "1234"
-    await this.myCartBehaviorSubj.setMycart(newCart);
+    if(checkCart.itemId === ""){
+      newCart.customerId = user
+      newCart.itemId = uuidv4()
+      newCart.id = this.productCode
+
+      await this.myCartBehaviorSubj.setMycart(newCart);
+
+      this.http.post("http://localhost:3000/order/createcart",newCart).subscribe()
+      console.log(newCart)
+    }
     await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
 
-    let checkCart = await this.myCartBehaviorSubj.getMycart()
     console.log(checkCart)
+
     
   }
 }
