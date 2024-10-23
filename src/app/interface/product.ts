@@ -1,4 +1,5 @@
 import { InitialProductDetail, ProductDetail } from "./productDetail"
+import { productImg } from "./productImg"
 import { ProductVariant } from "./productVariant"
 
 export interface Product {
@@ -7,6 +8,7 @@ export interface Product {
     cat_id: String 
     details: ProductDetail
     variants: ProductVariant[]
+    imgUrl: productImg[]
 }
 
 export class InitialProduct {
@@ -16,7 +18,8 @@ export class InitialProduct {
             name: "",
             cat_id: "", 
             details: InitialProductDetail.InitialProductDetail(),
-            variants: []
+            variants: [],
+            imgUrl: []
         }
     }
 }

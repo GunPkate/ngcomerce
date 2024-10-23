@@ -10,6 +10,7 @@ import { MyCartBehaviorSubj } from 'src/app/behaviorSubj/MyCartBehaviorSubj';
 import { InitialMyCart, MyCart } from 'src/app/interface/myCart';
 import { CartItemBehaviorSubj } from 'src/app/behaviorSubj/cartItemBehaviorSubj';
 import { OrderService } from 'src/app/service/order';
+import { OrderProductBehaviorSubj } from 'src/app/behaviorSubj/orderProductBehaviorSubj';
 const { v4: uuidv4 } = require('uuid');
 
 @Component({
@@ -25,6 +26,7 @@ export class OrderComponent implements OnInit {
     private sanitized: DomSanitizer,
     private myCartBehaviorSubj: MyCartBehaviorSubj,
     private cartItemBehaviorSubj: CartItemBehaviorSubj,
+    private orderProductBehaviorSubj: OrderProductBehaviorSubj,
     private orderService: OrderService
   ) { }
   title: string = "My Order"
@@ -50,44 +52,48 @@ export class OrderComponent implements OnInit {
 
     Promise.all(
       [
-      this.http.post("http://localhost:3000/order/product",{ id: this.productCode}).subscribe(
-        (res: any)=>{ 
-          this.selectItem.name = res.name
-
-          res.img_url.forEach((e: productImg) => { this.imgAll.push(e)});
-          this.selectImg = this.imgAll[0].img_url
-          this.imgList = this.imgAll.filter(x=> parseInt(x.img_code) <= 3);
-
-          this.selectItem.details.description = res.product_detail[0].description
-          this.selectItem.details.price = res.product_detail[0].price
-          this.selectItem.details.promotion_price = res.product_detail[0].promotion_price
-          this.selectItem.details.rating = res.product_detail[0].rating
-
-          if(res.variants.length > 0){
-            if( Number(res.variants[0].size ) > 0 ){
-              this.selectItem.variants = res.variants.sort((u: any,v : any) => u.size -v.size)
-            }else {
-              this.selectItem.variants = res.variants.sort((u: any,v : any) => {
-                return u.color > v.color ? 1 : -1 && u.size > v.size ? 1 : -1 
-              })
-            }
-          }
-
-          this.selectColor = [...new Set(this.selectItem.variants.map(x=>x.color_code))]
-          this.setUI(this.selectColor[0])
-
-          if(this.selectToCart.length === 0){
-            for(let i =0; i < this.selectItem.variants.length; i++ ){
-              this.newCart(0,this.selectItem.variants[i])
-            }
-          }
-        }   
-      ),
-
-      this.orderService.loadCart()
+        this.orderService.loadProduct({ id: this.productCode}),
+        this.orderService.loadCart()
       ]
     )
-    this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ this.myCart = data; console.log(123,data) })
+
+    this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ this.myCart = data;})
+
+    this.orderProductBehaviorSubj.getOrderProduct().subscribe(
+      (res: Product)=>{ 
+        this.selectItem.name = res.name
+
+        res.imgUrl.forEach((e: productImg) => { 
+          this.imgAll.push(e)
+          if(e.img_code === "1") this.selectImg = e.img_url
+        });
+        this.imgList = this.imgAll.filter(x=> parseInt(x.img_code) <= 3);
+
+        this.selectItem.details.description = res.details.description
+        this.selectItem.details.price = res.details.price
+        this.selectItem.details.promotion_price = res.details.promotion_price
+        this.selectItem.details.rating = res.details.rating
+
+        if(res.variants.length > 0){
+          if( Number(res.variants[0].size ) > 0 ){
+            this.selectItem.variants = res.variants.sort((u: any,v : any) => u.size -v.size)
+          }else {
+            this.selectItem.variants = res.variants.sort((u: any,v : any) => {
+              return u.color > v.color ? 1 : -1 && u.size > v.size ? 1 : -1 
+            })
+          }
+        }
+
+        this.selectColor = [...new Set(this.selectItem.variants.map(x=>x.color_code))]
+        this.setUI(this.selectColor[0])
+
+        if(this.selectToCart.length === 0){
+          for(let i =0; i < this.selectItem.variants.length; i++ ){
+            this.newCart(0,this.selectItem.variants[i])
+          }
+        }
+      }   
+    )
   }
   
   changeImg(value: number){

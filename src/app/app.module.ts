@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MyCartBehaviorSubj } from './behaviorSubj/MyCartBehaviorSubj';
 import { CartItemBehaviorSubj } from './behaviorSubj/cartItemBehaviorSubj';
 import { OrderService } from './service/order';
+import { OrderProductBehaviorSubj } from './behaviorSubj/orderProductBehaviorSubj';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { OrderService } from './service/order';
   providers: [
     MyCartBehaviorSubj,
     CartItemBehaviorSubj,
+    OrderProductBehaviorSubj,
     OrderService
   ],
   bootstrap: [AppComponent]
