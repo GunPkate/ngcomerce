@@ -147,7 +147,7 @@ export class OrderComponent implements OnInit {
         }
       }
     }
-
+    this.cartItemBehaviorSubj.setCartItemList(this.selectToCart)
   }
 
   newCart( number: number, value: ProductVariant){
@@ -216,7 +216,9 @@ export class OrderComponent implements OnInit {
           console.log("cartItem",i,this.cartItem[i] ) 
       }
       console.log("itemsBody",itemsBody ) 
-
+      await this.http.post("http://localhost:3000/order/deletecartitem",itemsBody).subscribe((data)=>{
+        console.log(data)
+      })
       await this.http.post("http://localhost:3000/order/cartitem",itemsBody).subscribe((data)=>{
         console.log(data)
       })
