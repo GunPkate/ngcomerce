@@ -23,7 +23,6 @@ export class OrderService{
 
     loadCart(){
         this.http.get("http://localhost:3000/order/cart").subscribe((data: any)=>{  
-            console.log("load cart",data);
             let initialMyCart = InitialMyCart.initialMyCart(); 
             data ? this.myCartBehaviorSubj.setMycart(data) : this.myCartBehaviorSubj.setMycart(initialMyCart)
         })
@@ -31,7 +30,6 @@ export class OrderService{
 
     loadCartItems(id: string){
         this.http.get("http://localhost:3000/order/cartitem/"+id).subscribe((data: any)=>{  
-            console.log("load cart item",data);
             let initialMyCartItem = initialCartItemUI.initialCartItemUI(); 
             data ? this.cartItemBehaviorSubj.setCartItemList(data) : this.cartItemBehaviorSubj.setCartItemList([])
         })

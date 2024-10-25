@@ -21,6 +21,7 @@ const { v4: uuidv4 } = require('uuid');
 })
 export class OrderComponent implements OnInit {
 
+
   constructor( 
     private router:Router, 
     private http: HttpClient, 
@@ -39,6 +40,7 @@ export class OrderComponent implements OnInit {
   imgAll: productImg[] = []
   orderQty: number = 0
 
+  oldItems: CartItem[] = []
   selectToCart:CartItemUI[] = []
   cartItem:CartItemUI[] = []
   summaryOrder: ProductVariant[] = []
@@ -67,15 +69,20 @@ export class OrderComponent implements OnInit {
 
     this.orderProductBehaviorSubj.getOrderProduct().subscribe( (res)=>{  this.setProductToUI(res) }  )
     this.cartItemBehaviorSubj.getCartItemList().subscribe(data =>{
-      console.log("selectToCart",this.selectToCart)
+      this.oldItems = data;
+
       if(data.length > 0){
+        let sum = 0 
         for (let j = 0; j < data.length; j++) {
 
             for(let i =0; i < this.selectToCart.length; i++ ){
-              if( data[j].skucode === this.selectToCart[i].id)  this.selectToCart[i].qty = data[j].qty
+              if( data[j].skucode === this.selectToCart[i].skucode){
+                this.selectToCart[i].qty = data[j].qty
+                sum += data[j].qty
+              } 
             }
-        
         }
+        this.orderQty = sum;
       }
     })
   }
@@ -187,7 +194,7 @@ export class OrderComponent implements OnInit {
     this.summaryOrder = []
     this.summaryOrder = this.selectItem.variants.filter(x=>checkSku.includes(x.skucode))
     // localStorage.clear()
-    localStorage.setItem("customerId","AAA")
+    localStorage.setItem("customerId","1")
     localStorage.setItem("productCode",this.productCode)
     console.log("add to cart",this.myCart)
   }
@@ -204,10 +211,12 @@ export class OrderComponent implements OnInit {
       await this.myCartBehaviorSubj.setMycart(newCart);
 
       this.http.post("http://localhost:3000/order/createcart",newCart).subscribe()
-      console.log(newCart)
+      console.log("newcart",newCart)
     }
+    let newData = this.oldItems
+    console.log("old",newData);
     await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
-
+    console.log("new",this.cartItem)
     if(this.myCart.id !== "" && this.cartItem.length > 0){
 
       let itemsBody:CartItem[]  = []
@@ -222,7 +231,7 @@ export class OrderComponent implements OnInit {
         }
           newItem.id = this.cartItem[i].id
           newItem.product_code = this.cartItem[i].product_code
-          newItem.skucode = this.summaryOrder[i].id
+          newItem.skucode = this.summaryOrder[i].skucode
           newItem.qty = this.cartItem[i].qty
           newItem.cart_id = this.myCart.id
           itemsBody.push(newItem)
@@ -235,7 +244,14 @@ export class OrderComponent implements OnInit {
       await this.http.post("http://localhost:3000/order/cartitem",itemsBody).subscribe((data)=>{
         console.log(data)
       })
-    }
-   
+      console.log(this.orderQty)
+    }  
+
+  }
+
+  navigate(){
+    setTimeout(() => {
+      this.router.navigate(['mycart'])
+    }, 1500);
   }
 }
