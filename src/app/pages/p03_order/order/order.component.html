@@ -127,7 +127,7 @@
                             ${{selectItem.details.price  | number : '1.2-2' }} x {{orderQty}} </td>
                         <td class="order-price-discount-text" 
                             *ngIf="selectItem.details.price !=selectItem.details.promotion_price">
-                            {{(selectItem.details.price-selectItem.details.promotion_price)/selectItem.details.promotion_price*100 | number : '1.2-2'}} % 
+                            {{(selectItem.details.price-selectItem.details.promotion_price)/selectItem.details.price*100 | number : '1.1-2'}} % 
                         </td>
                     </tr>
 

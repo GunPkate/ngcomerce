@@ -66,6 +66,18 @@ export class OrderComponent implements OnInit {
     })
 
     this.orderProductBehaviorSubj.getOrderProduct().subscribe( (res)=>{  this.setProductToUI(res) }  )
+    this.cartItemBehaviorSubj.getCartItemList().subscribe(data =>{
+      console.log("selectToCart",this.selectToCart)
+      if(data.length > 0){
+        for (let j = 0; j < data.length; j++) {
+
+            for(let i =0; i < this.selectToCart.length; i++ ){
+              if( data[j].skucode === this.selectToCart[i].id)  this.selectToCart[i].qty = data[j].qty
+            }
+        
+        }
+      }
+    })
   }
 
   setProductToUI(res: Product){
@@ -147,14 +159,15 @@ export class OrderComponent implements OnInit {
         }
       }
     }
-    this.cartItemBehaviorSubj.setCartItemList(this.selectToCart)
+    // this.cartItemBehaviorSubj.setCartItemList(this.selectToCart)
   }
 
   newCart( number: number, value: ProductVariant){
     let data = initialCartItemUI.initialCartItemUI();
     data.color = value.color_code
     data.product_code = this.productCode
-    data.qty += number 
+    data.qty  = number 
+    data.id = value.id
     data.skucode = value.skucode
     this.selectToCart.push(data)
   }
