@@ -5,12 +5,15 @@ import { OrderProductBehaviorSubj } from "../behaviorSubj/orderProductBehaviorSu
 import { InitialProduct, Product } from "../interface/product"
 import { InitialProductDetail } from "../interface/productDetail"
 import { InitialMyCart } from "../interface/myCart"
+import { initialCartItemUI } from "../interface/cartItemUI"
+import { CartItemBehaviorSubj } from "../behaviorSubj/cartItemBehaviorSubj"
 
 @Injectable()
 export class OrderService{
     constructor(
         private http: HttpClient,
         private myCartBehaviorSubj: MyCartBehaviorSubj,
+        private cartItemBehaviorSubj: CartItemBehaviorSubj,
         private orderProductBehaviorSubj: OrderProductBehaviorSubj
     ){}
 
@@ -23,6 +26,14 @@ export class OrderService{
             console.log("load cart",data);
             let initialMyCart = InitialMyCart.initialMyCart(); 
             data ? this.myCartBehaviorSubj.setMycart(data) : this.myCartBehaviorSubj.setMycart(initialMyCart)
+        })
+    }
+
+    loadCartItems(id: string){
+        this.http.get("http://localhost:3000/order/cartitem/"+id).subscribe((data: any)=>{  
+            console.log("load cart item",data);
+            let initialMyCartItem = initialCartItemUI.initialCartItemUI(); 
+            data ? this.cartItemBehaviorSubj.setCartItemList(data) : this.cartItemBehaviorSubj.setCartItemList([])
         })
     }
 

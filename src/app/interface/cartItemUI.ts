@@ -4,6 +4,7 @@ export interface CartItemUI{
     skucode : string
     qty : number
     color: string
+    cart_id: string
 }
 
 export class initialCartItemUI{
@@ -13,7 +14,8 @@ export class initialCartItemUI{
             product_code: "",
             skucode: "",
             qty : 0,
-            color: ""
+            color: "",
+            cart_id: ""
         }
     }
 }

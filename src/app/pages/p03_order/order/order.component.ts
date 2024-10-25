@@ -60,7 +60,10 @@ export class OrderComponent implements OnInit {
       ]
     )
 
-    this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ this.myCart = data;})
+    this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ 
+      this.myCart = data;
+      if(data.id){ this.orderService.loadCartItems( data.id ) }
+    })
 
     this.orderProductBehaviorSubj.getOrderProduct().subscribe( (res)=>{  this.setProductToUI(res) }  )
   }
@@ -180,12 +183,11 @@ export class OrderComponent implements OnInit {
 
     let user: any = localStorage.getItem("customerId") ? localStorage.getItem("customerId") : ""
 
-    if(this.myCart){
+    if(this.myCart.id === ""){
       let newCart = InitialMyCart.initialMyCart();
       newCart.customerId = user
-      newCart.itemId = uuidv4()
-      newCart.id = this.productCode
-
+      newCart.id = uuidv4()
+      newCart.itemId = this.productCode
       await this.myCartBehaviorSubj.setMycart(newCart);
 
       this.http.post("http://localhost:3000/order/createcart",newCart).subscribe()
@@ -193,10 +195,32 @@ export class OrderComponent implements OnInit {
     }
     await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
 
-    if(this.myCart.id){
+    if(this.myCart.id !== "" && this.cartItem.length > 0){
 
+      let itemsBody:CartItem[]  = []
+      
+      for (let i = 0; i < this.cartItem.length; i++) {   
+        let newItem = {
+          id: "",
+          product_code: "",
+          skucode: "",
+          qty: 0,
+          cart_id: "",
+        }
+          newItem.id = this.cartItem[i].id
+          newItem.product_code = this.cartItem[i].product_code
+          newItem.skucode = this.summaryOrder[i].id
+          newItem.qty = this.cartItem[i].qty
+          newItem.cart_id = this.myCart.id
+          itemsBody.push(newItem)
+          console.log("cartItem",i,this.cartItem[i] ) 
+      }
+      console.log("itemsBody",itemsBody ) 
+
+      await this.http.post("http://localhost:3000/order/cartitem",itemsBody).subscribe((data)=>{
+        console.log(data)
+      })
     }
-    console.log(this.myCart ) 
-    console.log(this.cartItem) 
+   
   }
 }
