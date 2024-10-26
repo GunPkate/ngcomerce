@@ -9,16 +9,23 @@
     </tr>
 </table>
 
-<table class="col-12 mt-4" *ngIf="itemlist.length > 0">
-    <tr *ngFor="let item of itemlist;">
-        <td class="col-3">{{item.id}}</td>
-        <td class="col-3">{{item}}</td>
-        <td class="col-3">{{item.qty}}</td>
-        <td class="col-3">{{item.skuCode}}</td>
+<!--  -->
+
+<table class="col-12 mt-4" *ngIf="myCartDetails.length > 0">
+    <tr *ngFor="let item of myCartDetails;">
+        <td class="col-3">{{item.name}}</td>
+        <!-- <td class="col-3">{{item}}</td> -->
+        <td class="col-3" *ngFor="let img of item.imgUrl">
+            <img src="{{img.img_url}}"/>
+        </td>
+        <td class="col-3" *ngFor="let va of item.variants">
+            <img src="{{va.size}}"/>
+        </td>
+        <!-- <td class="col-3">{{item.skucode}}</td> -->
     </tr>
 </table>
 
-<table class="col-12 mt-4" *ngIf="itemlist.length === 0">
+<table class="col-12 mt-4" *ngIf="itemList.length === 0">
     <tr>
         <td rowspan="6" class="col-12">
             <div class="col-12 text-center">Your Cart is Empty</div>
