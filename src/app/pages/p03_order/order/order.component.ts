@@ -58,7 +58,6 @@ export class OrderComponent implements OnInit {
     Promise.all(
       [
         this.orderService.loadProduct({ id: this.productCode}),
-        this.orderService.loadCart()
       ]
     )
 
@@ -188,6 +187,7 @@ export class OrderComponent implements OnInit {
     this.cartItem = this.selectToCart.filter(x=>x.qty>0)
     this.cartItem.forEach(x =>{ 
       x.id = uuidv4(); 
+      localStorage.setItem("cartId",x.id)
       x.product_code = this.productCode
     })
     let checkSku = [...new Set(this.cartItem.map(y=>y.skucode))]
@@ -196,6 +196,7 @@ export class OrderComponent implements OnInit {
     // localStorage.clear()
     localStorage.setItem("customerId","1")
     localStorage.setItem("productCode",this.productCode)
+
     console.log("add to cart",this.myCart)
   }
 
@@ -213,9 +214,23 @@ export class OrderComponent implements OnInit {
       this.http.post("http://localhost:3000/order/createcart",newCart).subscribe()
       console.log("newcart",newCart)
     }
-    let newData = this.oldItems
-    console.log("old",newData);
-    await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
+    let oldData = this.oldItems.filter(x=>x.product_code != this.productCode)
+    if(oldData.length > 0){
+      for (let i = 0; i < this.cartItem.length; i++) {
+        let temp = initialCartItem.initialCartItem();
+        temp.id = this.cartItem[i].id
+        temp.product_code = this.cartItem[i].product_code
+        temp.skucode = this.cartItem[i].skucode
+        temp.qty = this.cartItem[i].qty
+        oldData.push(temp)
+           await this.cartItemBehaviorSubj.setCartItemList(oldData)
+      }
+      console.log("old Data",oldData)
+      await this.cartItemBehaviorSubj.setCartItemList(oldData)
+    }else{
+      await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
+    }
+
     console.log("new",this.cartItem)
     if(this.myCart.id !== "" && this.cartItem.length > 0){
 

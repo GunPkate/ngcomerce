@@ -24,6 +24,7 @@ export class OrderService{
     loadCart(){
         this.http.get("http://localhost:3000/order/cart").subscribe((data: any)=>{  
             let initialMyCart = InitialMyCart.initialMyCart(); 
+            console.log(data)
             data ? this.myCartBehaviorSubj.setMycart(data) : this.myCartBehaviorSubj.setMycart(initialMyCart)
         })
     }
@@ -61,6 +62,15 @@ export class OrderService{
             this.orderProductBehaviorSubj.setOrderProduct(product) 
         })
     }
+
+    // loadProduct(){
+    //     this.http.get("http://localhost:3000/order/product").subscribe((data: any)=> {  
+    //         let product: Product = InitialProduct.InitialProduct();
+  
+
+    //         this.orderProductBehaviorSubj.setOrderProduct(product) 
+    //     })
+    // }
 
     clearData(){
         this.orderProductBehaviorSubj.setOrderProduct(InitialProduct.InitialProduct());
