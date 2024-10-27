@@ -12,7 +12,7 @@ import { CartItemBehaviorSubj } from './behaviorSubj/cartItemBehaviorSubj';
 import { OrderService } from './service/order';
 import { OrderProductBehaviorSubj } from './behaviorSubj/orderProductBehaviorSubj';
 import { MyCartService } from './service/mycart';
-import { MyCarttDetailBehaviorSubj } from './behaviorSubj/myCartDetailBehavior';
+import { MyCartDetailBehaviorSubj } from './behaviorSubj/myCartDetailBehaviorSubj';
 
 
 @NgModule({
@@ -31,7 +31,7 @@ import { MyCarttDetailBehaviorSubj } from './behaviorSubj/myCartDetailBehavior';
     MyCartBehaviorSubj,
     CartItemBehaviorSubj,
     OrderProductBehaviorSubj,
-    MyCarttDetailBehaviorSubj,
+    MyCartDetailBehaviorSubj,
     OrderService,
     MyCartService
   ],

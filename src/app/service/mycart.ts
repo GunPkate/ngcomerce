@@ -1,19 +1,19 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MyCartBehaviorSubj } from "../behaviorSubj/MyCartBehaviorSubj";
+import { MyCartDetailBehaviorSubj } from "../behaviorSubj/myCartDetailBehaviorSubj";
 
 @Injectable()
 export class MyCartService{
     constructor(
         private http: HttpClient,
-        private myCartBehaviorSubj: MyCartBehaviorSubj
+        private myCartDetailBehaviorSubj: MyCartDetailBehaviorSubj
     ){}
-    loadCartDetail(data: any){
-        this.http.post("http://localhost:3000/mycart/cartdetails",data).subscribe(
-            (data: any) => {  
-                console.log(111,data)
-                this.myCartBehaviorSubj.setMycart(data) 
-            }
+
+    loadCartDetail2(cartId: string){
+
+        this.http.post("http://localhost:3000/mycart/cartdetails/"+cartId,{}).subscribe(
+            (data: any) => {  this.myCartDetailBehaviorSubj.setMyCartDetail(data) }
         )
     }
 }
