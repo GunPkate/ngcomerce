@@ -2,6 +2,16 @@
     position: relative;
     min-height: 300px;
     max-height: 500px;
+    display: flex;
+    justify-content: center;
+
+ 
+    background: linear-gradient(217deg, rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0) );
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+
+   
+      
 }
 
 .item-text{
@@ -22,4 +32,9 @@
     background-color: #0D0D0D;
     padding: 5px 10px 5px 10px !important;
     border-radius: 30px;
+}
+
+.img-cat {
+    width: 250px;
+    height: 290px;
 }

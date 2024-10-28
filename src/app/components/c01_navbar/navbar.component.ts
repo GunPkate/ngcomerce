@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -8,4 +9,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class NavbarComponent {
   title = 'ngcomerce';
+
+constructor( private route: Router ){}
+  navigateTo(e: MouseEvent,link: any){
+    this.route.navigate([link])
+    e.preventDefault()
+  }
 }

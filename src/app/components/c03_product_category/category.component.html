@@ -1,17 +1,13 @@
 <div class="container-fluid mx-auto">
     <div class="row w-100">
-        <div *ngFor="let item of list; index as i" class="col-lg-4 col-md-6 col-12" >
-            <div class="card">
-                <div class="card-body">
-                    <div class="item-content">
-                        <img class="img-fluid" src={{item.img_url[0].img_url}}/>
-                        <button [routerLink]="['/order', item.id]">
-                            <h5 [ngClass]="i % 2 ===1 ? 'item-text item-info2 ': 'item-text item-info1' ">{{ item.name }}</h5>
-                        </button>
-                        <!-- <p class="card-text">{{ item.img_url[0].img_url }}</p> -->
-                    </div>
+        <div *ngFor="let item of list; index as i" class="col-lg-4 col-md-6 col-12" >      
+            <div class="item-content py-2">
+                <img class="img-fluid img-cat"  src={{item.img_url[0].img_url}}/>
+                <div style="cursor: pointer;" [routerLink]="['/order', item.id]">
+                    <h5 [ngClass]="i % 2 ===1 ? 'item-text item-info2 ': 'item-text item-info1' ">{{ item.name }}</h5>
                 </div>
+                <!-- <p class="card-text">{{ item.img_url[0].img_url }}</p> -->
             </div>
-        </div>
+        </div>     
     </div>
 </div>

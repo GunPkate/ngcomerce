@@ -3,11 +3,9 @@
   <div class="col-12 align-items-center d-flex main-navbar">
     <div class="row align-items-center w-100">
         <div class="d-flex justify-content-between w-100">
-          <a class="px-3" routerLink="/">Home</a>
-          <a class="px-3" routerLink="/itemlist">ItemList</a>
-          <a class="px-3" routerLink="/order">Order</a>
-          <div>4</div>
-          <a class="px-3" routerLink="/mycart">My Cart</a>
+          <div class="px-3" (click)="navigateTo($event,'/')">Home</div>
+          <div class="px-3" (click)="navigateTo($event,'/itemlist')">ItemList</div>
+          <div class="px-3" (click)="navigateTo($event,'/mycart')">My Cart</div>
         </div>
     </div>
   </div>
