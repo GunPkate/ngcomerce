@@ -65,7 +65,9 @@ export class OrderComponent implements OnInit {
   }
 
   startGetQtyData(){
+    this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ this.myCart = data;})
     let cartId:string| null= localStorage.getItem("cartId")
+    console.log("cartId",cartId)
     if(cartId){
       this.orderService.loadCartItems( cartId ) 
    }
@@ -193,7 +195,6 @@ export class OrderComponent implements OnInit {
     this.cartItem = this.selectToCart.filter(x=>x.qty>0)
     this.cartItem.forEach(x =>{ 
       x.id = uuidv4(); 
-      localStorage.setItem("cartId",x.id)
       x.product_code = this.productCode
     })
     let checkSku = [...new Set(this.cartItem.map(y=>y.skucode))]
@@ -210,10 +211,11 @@ export class OrderComponent implements OnInit {
 
     let user: any = localStorage.getItem("customerId") ? localStorage.getItem("customerId") : ""
 
-    if(this.myCart.id === ""){
+    if(this.myCart.id === "" || null){
       let newCart = InitialMyCart.initialMyCart();
       newCart.customerId = user
       newCart.id = uuidv4()
+      localStorage.setItem("cartId",newCart.id)
       newCart.itemId = this.productCode
       await this.myCartBehaviorSubj.setMycart(newCart);
 
