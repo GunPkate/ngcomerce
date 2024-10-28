@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { CartItemBehaviorSubj } from 'src/app/behaviorSubj/cartItemBehaviorSubj';
 import { MyCartBehaviorSubj } from 'src/app/behaviorSubj/MyCartBehaviorSubj';
 import { MyCartDetailBehaviorSubj } from 'src/app/behaviorSubj/myCartDetailBehaviorSubj';
@@ -16,7 +17,7 @@ export class MyCartComponent implements OnInit {
   constructor(
     private myCartService: MyCartService,
     private myCartDetailBehaviorSubj: MyCartDetailBehaviorSubj,
-
+    private sanitized: DomSanitizer,
   ) { }
 
   itemList:CartItem[] = []
@@ -43,4 +44,17 @@ export class MyCartComponent implements OnInit {
 
   }
 
+  setColor(value: string, size: string, colorValue: string){
+    let color = this.sanitized.bypassSecurityTrustHtml(
+      `
+      <div style ="background-color: black; width: 60px; height: 60px; margin: 5px !important; border-radius: 15px; display: flex;justify-content: center; align-items: center;">
+        <div style ="background-color: #eee; width: 50px; height: 50px;border-radius: 10px; display: flex;justify-content: center; align-items: center;">
+          <div style ="background-color: ${value}; width: 40px; height: 40px; border-radius: 5px;">
+          </div>
+        </div>
+      </div>
+      <div style=" display: flex;justify-content: center; align-items: center;"> (${size} ${colorValue}) </div>`
+    )
+    return color
+  }
 }

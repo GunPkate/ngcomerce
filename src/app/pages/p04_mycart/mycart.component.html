@@ -14,9 +14,10 @@
 <table class="col-12 mt-4 text-center" *ngIf="myCartDetails.length > 0">
     <tr *ngFor="let item of myCartDetails;">
         <td class="col-3">
-            <div><img style="height: 200px; width: 180px;" src="{{item.img_url}}"/></div>
+            <div><img style="height: 200px; width: 180px; border-radius: 20px;" src="{{item.img_url}}"/></div>
             <a routerLink="/order/{{item.product_code}}">
-                <div>{{item.name}} ({{item.size}} {{item.color}})</div>
+                <div class="d-flex justify-content-center m-2" [innerHTML]="setColor(item.color_code, item.size, item.color)"></div>
+                <div>{{item.name}} </div>
             </a>
         </td>
         <td class="col-3">{{item.price}} &nbsp; {{item.promotion_price}}</td>
@@ -27,7 +28,7 @@
     </tr>
 </table>
 
-<table class="col-12 mt-4" *ngIf="itemList.length === 0">
+<table class="col-12 mt-4" *ngIf="myCartDetails.length === 0">
     <tr>
         <td rowspan="6" class="col-12">
             <div class="col-12 text-center">Your Cart is Empty</div>
