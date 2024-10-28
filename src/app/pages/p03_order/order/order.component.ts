@@ -67,10 +67,10 @@ export class OrderComponent implements OnInit {
   startGetQtyData(){
     this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ this.myCart = data;})
     let cartId:string| null= localStorage.getItem("cartId")
-    console.log("cartId",cartId)
+
     if(cartId){
       this.orderService.loadCartItems( cartId ) 
-   }
+    }
 
    this.orderProductBehaviorSubj.getOrderProduct().subscribe( (res)=>{  this.setProductToUI(res) }  )
    this.cartItemBehaviorSubj.getCartItemList().subscribe(data =>{
@@ -239,6 +239,14 @@ export class OrderComponent implements OnInit {
       await this.cartItemBehaviorSubj.setCartItemList(this.cartItem)
     }
 
+    let cartId:string| null= localStorage.getItem("cartId")
+
+    if(cartId){
+      await this.http.post("http://localhost:3000/order/deletecartitem",{cartId: cartId}).subscribe((data)=>{
+        console.log(data)
+      })
+    }
+
     console.log("new",this.cartItem)
     if(this.myCart.id !== "" && this.cartItem.length > 0){
 
@@ -261,9 +269,7 @@ export class OrderComponent implements OnInit {
           console.log("cartItem",i,this.cartItem[i] ) 
       }
       console.log("itemsBody",itemsBody ) 
-      await this.http.post("http://localhost:3000/order/deletecartitem",itemsBody).subscribe((data)=>{
-        console.log(data)
-      })
+
       await this.http.post("http://localhost:3000/order/cartitem",itemsBody).subscribe((data)=>{
         console.log(data)
       })
