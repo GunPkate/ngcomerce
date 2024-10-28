@@ -138,10 +138,12 @@ export class OrderComponent implements OnInit {
       }
     }else{
       for (let i = 0 + limitMin - 1; i < limitMax; i++) {
-        if(this.imgAll.length - 1){
+        if(i <= this.imgAll.length -1 ){
           this.imgList.push(this.imgAll[i])
         }else{
-          this.imgList.push({name:""})
+          let a = InitialProductImg.InitialProductImg()
+          a.img_url = "123"
+          this.imgList.push(a)
         }
       }
     }
