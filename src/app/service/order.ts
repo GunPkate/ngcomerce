@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core"
 import { OrderProductBehaviorSubj } from "../behaviorSubj/orderProductBehaviorSubj"
 import { InitialProduct, Product } from "../interface/product"
 import { InitialProductDetail } from "../interface/productDetail"
-import { InitialMyCart } from "../interface/myCart"
+
 import { initialCartItemUI } from "../interface/cartItemUI"
 import { CartItemBehaviorSubj } from "../behaviorSubj/cartItemBehaviorSubj"
 
@@ -12,21 +12,12 @@ import { CartItemBehaviorSubj } from "../behaviorSubj/cartItemBehaviorSubj"
 export class OrderService{
     constructor(
         private http: HttpClient,
-        private myCartBehaviorSubj: MyCartBehaviorSubj,
         private cartItemBehaviorSubj: CartItemBehaviorSubj,
         private orderProductBehaviorSubj: OrderProductBehaviorSubj
     ){}
 
     createCart(){
 
-    }
-
-    loadCart(){
-        this.http.get("http://localhost:3000/order/cart").subscribe((data: any)=>{  
-            let initialMyCart = InitialMyCart.initialMyCart(); 
-            console.log(data)
-            data ? this.myCartBehaviorSubj.setMycart(data) : this.myCartBehaviorSubj.setMycart(initialMyCart)
-        })
     }
 
     loadCartItems(id: string){

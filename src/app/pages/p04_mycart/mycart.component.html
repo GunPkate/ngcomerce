@@ -16,7 +16,7 @@
         <td class="col-3">
             <div><img style="height: 200px; width: 180px;" src="{{item.img_url}}"/></div>
             <a routerLink="/order/{{item.product_code}}">
-                <div>{{item.name}} ({{item.color}})</div>
+                <div>{{item.name}} ({{item.size}} {{item.color}})</div>
             </a>
         </td>
         <td class="col-3">{{item.price}} &nbsp; {{item.promotion_price}}</td>

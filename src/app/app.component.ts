@@ -22,29 +22,25 @@ export class AppComponent implements OnInit{
     private myCartService: MyCartService
   ){}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
   let cartId:string| null= localStorage.getItem("cartId")
 
 
     if(cartId){
-      this.myCartService.loadCartDetail2(cartId)
+      await this.myCartService.loadCart(cartId)
+      await this.myCartService.loadCartDetail2(cartId)
     }
 
     if(cartId){
       this.myCartDetailBehaviorSubj.getMyCartDetail()
     }
-  Promise.all(
-    [
-      // this.orderService.loadProduct({ id: this.productCode}),
-      this.orderService.loadCart(),
-    ]
-    
-  )
+
   this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ 
     this.myCartGlobal = data;
     if(data.id){ this.orderService.loadCartItems( data.id ) }
   })
   
+  this.myCartBehaviorSubj.getMycart() 
   this.myCartDetailBehaviorSubj.getMyCartDetail().subscribe((data) =>{ console.log(data) })
   }
 }
