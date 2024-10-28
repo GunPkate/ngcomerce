@@ -61,29 +61,33 @@ export class OrderComponent implements OnInit {
       ]
     )
 
-    this.myCartBehaviorSubj.getMycart().subscribe((data) =>{ 
-      this.myCart = data;
-      if(data.id){ this.orderService.loadCartItems( data.id ) }
-    })
+    setTimeout(()=>{this.startGetQtyData()},2000) 
+  }
 
-    this.orderProductBehaviorSubj.getOrderProduct().subscribe( (res)=>{  this.setProductToUI(res) }  )
-    this.cartItemBehaviorSubj.getCartItemList().subscribe(data =>{
-      this.oldItems = data;
+  startGetQtyData(){
+    let cartId:string| null= localStorage.getItem("cartId")
+    if(cartId){
+      this.orderService.loadCartItems( cartId ) 
+   }
 
-      if(data.length > 0){
-        let sum = 0 
-        for (let j = 0; j < data.length; j++) {
+   this.orderProductBehaviorSubj.getOrderProduct().subscribe( (res)=>{  this.setProductToUI(res) }  )
+   this.cartItemBehaviorSubj.getCartItemList().subscribe(data =>{
+     this.oldItems = data;
 
-            for(let i =0; i < this.selectToCart.length; i++ ){
-              if( data[j].skucode === this.selectToCart[i].skucode){
-                this.selectToCart[i].qty = data[j].qty
-                sum += data[j].qty
-              } 
-            }
-        }
-        this.orderQty = sum;
-      }
-    })
+     if(data.length > 0){
+       let sum = 0 
+       for (let j = 0; j < data.length; j++) {
+
+           for(let i =0; i < this.selectToCart.length; i++ ){
+             if( data[j].skucode === this.selectToCart[i].skucode){
+               this.selectToCart[i].qty = data[j].qty
+               sum += data[j].qty
+             } 
+           }
+       }
+       this.orderQty = sum;
+     }
+   })
   }
 
   setProductToUI(res: Product){
