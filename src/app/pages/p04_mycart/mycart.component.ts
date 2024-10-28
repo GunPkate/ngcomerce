@@ -14,10 +14,9 @@ import { MyCartService } from 'src/app/service/mycart';
 export class MyCartComponent implements OnInit {
 
   constructor(
-    private cartItemBehaviorSubj: CartItemBehaviorSubj,
-    private myCartBehaviorSubj: MyCartBehaviorSubj,
-    private myCarttDetailBehaviorSubj: MyCartDetailBehaviorSubj,
-    private myCartService: MyCartService
+    private myCartService: MyCartService,
+    private myCartDetailBehaviorSubj: MyCartDetailBehaviorSubj,
+
   ) { }
 
   itemList:CartItem[] = []
@@ -25,11 +24,16 @@ export class MyCartComponent implements OnInit {
   tempData: any = []
 
   ngOnInit(): void {
-    // this.myCartBehaviorSubj.getMycart().subscribe(data => console.log(data))
+
+
     let cartId:string| null= localStorage.getItem("cartId")
 
     if(cartId){
-      this.myCarttDetailBehaviorSubj.getMyCartDetail().subscribe((data: any) => this.myCartDetails = data)
+      this.myCartService.loadCartDetail2(cartId)
+    }
+
+    if(cartId){
+      this.myCartDetailBehaviorSubj.getMyCartDetail().subscribe((data: any) => this.myCartDetails = data)
     }
 
 

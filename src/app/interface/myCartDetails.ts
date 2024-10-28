@@ -7,7 +7,10 @@ export interface MyCartDetail {
     color_code: string
     size: string
     qty: number
-    img_url: string	
+    img_url: string,
+    price: number,
+    promotion_price: number,
+    product_code: string
 }
 
 export class InitialMycartDetail {
@@ -19,6 +22,9 @@ export class InitialMycartDetail {
             size: "",
             qty: 0,
             img_url: "",	
+            price: 0,
+            promotion_price: 0,
+            product_code: ""
         }
     }
 }

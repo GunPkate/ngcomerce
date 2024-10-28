@@ -11,12 +11,18 @@
 
 <!--  -->
 
-<table class="col-12 mt-4" *ngIf="myCartDetails.length > 0">
+<table class="col-12 mt-4 text-center" *ngIf="myCartDetails.length > 0">
     <tr *ngFor="let item of myCartDetails;">
-        <td class="col-3">{{item.name}}</td>
-        <!-- <td class="col-3">{{item}}</td> -->
-        <td class="col-3">{{item.color}}</td>
+        <td class="col-3">
+            <div><img style="height: 200px; width: 180px;" src="{{item.img_url}}"/></div>
+            <a routerLink="/order/{{item.product_code}}">
+                <div>{{item.name}} ({{item.color}})</div>
+            </a>
+        </td>
+        <td class="col-3">{{item.price}} &nbsp; {{item.promotion_price}}</td>
         <td class="col-3">{{item.qty}}</td>
+        <td class="col-3">{{item.promotion_price?item.qty * item.promotion_price : item.qty * item.price}}</td>
+
         <!-- <td class="col-3">{{item.skucode}}</td> -->
     </tr>
 </table>
